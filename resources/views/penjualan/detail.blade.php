@@ -61,17 +61,17 @@
             </thead>
             <tbody>
                 @forelse($penjualan->itemPenjualan as $index => $item)
-                    <tr class="border-t hover:bg-gray-50 transition">
-                        <td class="px-6 py-4">{{ $index + 1 }}</td>
-                        <td class="px-6 py-4 font-semibold text-gray-800">{{ $item->produk->nama ?? 'Produk Dihapus' }}</td>
-                        <td class="px-6 py-4">Rp {{ number_format($item->harga_satuan ?? 0, 0, ',', '.') }}</td>
-                        <td class="px-6 py-4">{{ $item->kuantitas }}</td>
-                        <td class="px-6 py-4 text-right font-bold text-[#0A2540]">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
-                    </tr>
+                <tr class="border-t hover:bg-gray-50 transition">
+                    <td class="px-6 py-4">{{ $index + 1 }}</td>
+                    <td class="px-6 py-4 font-semibold text-gray-800">{{ $item->produk->nama ?? 'Produk Dihapus' }}</td>
+                    <td class="px-6 py-4">Rp {{ number_format($item->harga_satuan ?? 0, 0, ',', '.') }}</td>
+                    <td class="px-6 py-4">{{ $item->kuantitas }}</td>
+                    <td class="px-6 py-4 text-right font-bold text-[#0A2540]">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="5" class="text-center py-6 text-gray-500">Tidak ada item dalam transaksi ini</td>
-                    </tr>
+                <tr>
+                    <td colspan="5" class="text-center py-6 text-gray-500">Tidak ada item dalam transaksi ini</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>

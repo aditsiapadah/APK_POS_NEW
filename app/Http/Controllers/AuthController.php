@@ -9,23 +9,23 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function index ()
+    public function index()
     {
         return view('login');
     }
 
-    public function auth (LoginRequest $request)
+    public function auth(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
 
-    if (Auth::attempt($credentials)) {
-        return redirect()->route('dashboard')->with ('success', 'Selamat Datang, ' . Auth::user()->name);
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('dashboard')->with('success', 'Selamat Datang, ' . Auth::user()->name);
+        }
+
+        return redirect()->back()->with('error', 'Login gagal');
     }
 
-    return redirect()->back()->with('error', 'Login gagal');
-}
-
-    public function logout (Request $request)
+    public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();

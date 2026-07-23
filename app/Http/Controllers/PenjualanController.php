@@ -47,12 +47,12 @@ class PenjualanController extends Controller
 
         $keyword = $request->input('search');
 
-        if($keyword) {
+        if ($keyword) {
             $products = Produk::when($keyword, function ($query) use ($keyword) {
                 $query->where('nama', 'like', '%' . $keyword . '%');
             })
-            ->orderBy('nama')
-            ->get();
+                ->orderBy('nama')
+                ->get();
         } else {
             $products = Produk::orderBy('nama')->get();
         }
@@ -84,34 +84,34 @@ class PenjualanController extends Controller
             ->with('success', 'Transaksi berhasil dibatalkan');
     }
 
-   public function update(Request $request, Penjualan $penjualan)
-{
-    $request->validate([
-        'payment_method' => 'required|in:CASH,TRANSFER,QRIS'
-    ]);
-
-    if ($penjualan->status !== 'OPEN') {
-        return back()->with('errors', 'Transaksi sudah diproses');
-    }
-
-    if ($penjualan->itemPenjualan()->count() === 0) {
-        return back()->with('errors', 'Keranjang masih kosong');
-    }
-
-    DB::transaction(function () use ($penjualan, $request) {
-        $total = $penjualan->itemPenjualan()->sum('subtotal');
-
-        $penjualan->update([
-            'metode_pembayaran' => $request->payment_method,
-            'total_pembayaran'  => $total,
-            'status'            => 'COMPLETED'
+    public function update(Request $request, Penjualan $penjualan)
+    {
+        $request->validate([
+            'payment_method' => 'required|in:CASH,TRANSFER,QRIS'
         ]);
-    });
 
-    return redirect()
-        ->route('penjualan.index')
-        ->with('success', 'Transaksi berhasil diselesaikan');
-}
+        if ($penjualan->status !== 'OPEN') {
+            return back()->with('errors', 'Transaksi sudah diproses');
+        }
+
+        if ($penjualan->itemPenjualan()->count() === 0) {
+            return back()->with('errors', 'Keranjang masih kosong');
+        }
+
+        DB::transaction(function () use ($penjualan, $request) {
+            $total = $penjualan->itemPenjualan()->sum('subtotal');
+
+            $penjualan->update([
+                'metode_pembayaran' => $request->payment_method,
+                'total_pembayaran'  => $total,
+                'status'            => 'COMPLETED'
+            ]);
+        });
+
+        return redirect()
+            ->route('penjualan.index')
+            ->with('success', 'Transaksi berhasil diselesaikan');
+    }
 
     public function edit(Penjualan $penjualan)
     {

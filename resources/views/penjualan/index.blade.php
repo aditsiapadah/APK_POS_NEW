@@ -24,18 +24,18 @@
 
     {{-- Alert Success --}}
     @if(session('success'))
-        <div class="mb-5 bg-green-100 border border-green-300
+    <div class="mb-5 bg-green-100 border border-green-300
             text-green-700 px-5 py-3 rounded-xl">
-            {{ session('success') }}
-        </div>
+        {{ session('success') }}
+    </div>
     @endif
 
     {{-- Alert Error / Warning --}}
     @if(session('errors') || session('error'))
-        <div class="mb-5 bg-red-100 border border-red-300
+    <div class="mb-5 bg-red-100 border border-red-300
             text-red-700 px-5 py-3 rounded-xl">
-            {{ session('errors') ?? session('error') }}
-        </div>
+        {{ session('errors') ?? session('error') }}
+    </div>
     @endif
 
     {{-- Search Bar --}}
@@ -73,7 +73,7 @@
             </thead>
 
             <tbody>
-            @forelse($penjualan as $index => $item)
+                @forelse($penjualan as $index => $item)
                 <tr class="border-t hover:bg-gray-50 transition">
                     <td class="px-8 py-5">
                         {{ $penjualan->firstItem() + $index }}
@@ -116,35 +116,35 @@
 
                             {{-- Tombol Edit & Hapus (Hanya Tampil untuk Admin) --}}
                             @if(auth()->user()->role->name == 'Admin')
-                                {{-- Edit --}}
-                                <a href="{{ route('penjualan.edit', $item->id) }}"
-                                    class="w-10 h-10 rounded-lg bg-yellow-400 hover:bg-yellow-500
+                            {{-- Edit --}}
+                            <a href="{{ route('penjualan.edit', $item->id) }}"
+                                class="w-10 h-10 rounded-lg bg-yellow-400 hover:bg-yellow-500
                                     flex items-center justify-center text-white transition" title="Edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </a>
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
 
-                                {{-- Delete --}}
-                                <form action="{{ route('penjualan.destroy', $item->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        onclick="return confirm('Hapus data penjualan ini?')"
-                                        class="w-10 h-10 rounded-lg bg-red-500 hover:bg-red-600
+                            {{-- Delete --}}
+                            <form action="{{ route('penjualan.destroy', $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    onclick="return confirm('Hapus data penjualan ini?')"
+                                    class="w-10 h-10 rounded-lg bg-red-500 hover:bg-red-600
                                         flex items-center justify-center text-white transition" title="Hapus">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </form>
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                             @endif
                         </div>
                     </td>
                 </tr>
-            @empty
+                @empty
                 <tr>
                     <td colspan="7" class="text-center py-10 text-gray-500">
                         Tidak ada data penjualan
                     </td>
                 </tr>
-            @endforelse
+                @endforelse
             </tbody>
         </table>
     </div>

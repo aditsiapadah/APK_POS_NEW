@@ -20,9 +20,9 @@
         <div>
             <span class="block text-xs font-semibold text-slate-400 uppercase">Foto</span>
             @if($produk->foto)
-                <span class="text-slate-700">{{ $produk->foto }}</span>
+            <span class="text-slate-700">{{ $produk->foto }}</span>
             @else
-                <span class="text-slate-400 italic">Tidak ada foto</span>
+            <span class="text-slate-400 italic">Tidak ada foto</span>
             @endif
         </div>
 

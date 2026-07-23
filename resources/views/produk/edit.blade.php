@@ -9,7 +9,7 @@
     <form action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         @method('PUT')
-        
+
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Nama Produk</label>
             <input type="text" name="nama_produk" value="{{ $produk->nama_produk }}" required class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
@@ -18,7 +18,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Foto Produk <span class="text-xs text-slate-400 font-normal">(Biarkan kosong jika tidak diubah)</span></label>
             @if($produk->foto)
-                <p class="text-xs text-slate-500 mb-1">File saat ini: {{ $produk->foto }}</p>
+            <p class="text-xs text-slate-500 mb-1">File saat ini: {{ $produk->foto }}</p>
             @endif
             <input type="file" name="foto" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none bg-white">
         </div>
