@@ -356,103 +356,50 @@
                 text-slate-500
                 dark:text-slate-400
             ">
-
-
                 Menampilkan
-
                 {{ $produkStokRendah->firstItem() }}
-
                 -
-
                 {{ $produkStokRendah->lastItem() }}
-
                 dari
-
                 {{ $produkStokRendah->total() }}
-
                 produk
-
-
             </div>
-
-
-
             <div>
-
                 {{ $produkStokRendah->links('pagination::tailwind') }}
-
             </div>
-
-
-
         </div>
-
-
         @endif
-
-
-
     </div>
-
-
-
-
-
     {{-- STOK HABIS --}}
-
     <div class="
         bg-white dark:bg-[#162033]
         rounded-3xl
         shadow-xl
         p-8
     ">
-
-
         <h3 class="
             text-xl font-semibold
             text-[#0A2540] dark:text-white
             mb-6
             flex items-center gap-3
         ">
-
-
             <span class="text-red-500">
-
                 ⛔
-
             </span>
-
-
             Daftar Produk Habis
-
-
         </h3>
-
-
-
-
         <div class="
             overflow-x-auto
             border border-slate-100 dark:border-slate-700
             rounded-2xl
         ">
-
-
-
             <table class="w-full min-w-[500px]">
-
-
                 <thead>
-
-
                     <tr class="
                         border-b
                         border-slate-200
                         dark:border-slate-700
                     ">
-
-
-
                         <th class="
                             text-left
                             py-4 px-6
@@ -460,14 +407,8 @@
                             dark:text-slate-400
                             font-medium
                         ">
-
                             #
-
                         </th>
-
-
-
-
                         <th class="
                             text-left
                             py-4 px-6
@@ -475,14 +416,8 @@
                             dark:text-slate-400
                             font-medium
                         ">
-
                             Nama Produk
-
                         </th>
-
-
-
-
                         <th class="
                             text-center
                             py-4 px-6
@@ -490,86 +425,36 @@
                             dark:text-slate-400
                             font-medium
                         ">
-
                             Stok
-
                         </th>
-
-
-
                     </tr>
-
-
                 </thead>
-
-
-
-
                 <tbody class="
                     text-slate-700
                     dark:text-slate-200
-
                     divide-y
                     divide-slate-200
                     dark:divide-slate-700
                 ">
-
-
-
-
                     @forelse($produkStokHabis as $index => $produk)
-
-
-
                     <tr>
-
-
-
                         <td class="py-4 px-6">
-
                             {{ $index + 1 }}
-
                         </td>
-
-
-
-
                         <td class="py-4 px-6">
-
                             {{ $produk->nama }}
-
                         </td>
-
-
-
-
                         <td class="
                             text-center
                             py-4 px-6
                             font-semibold
                             text-red-600
                         ">
-
-
                             {{ $produk->stok }}
-
-
                         </td>
-
-
-
                     </tr>
-
-
-
                     @empty
-
-
-
-
                     <tr>
-
-
                         <td colspan="3"
                             class="
                             text-center
@@ -577,55 +462,23 @@
                             text-slate-400
                             dark:text-slate-500
                         ">
-
-
                             Tidak ada produk habis stok
-
-
                         </td>
-
-
                     </tr>
-
-
-
-
                     @endforelse
-
-
-
-
-
                 </tbody>
-
-
-
             </table>
-
-
-
-
         </div>
-
-
-
-
     </div>
 
-
-
 </div>
-
 {{-- BEST SELLER --}}
-
 <div class="
     bg-white dark:bg-[#162033]
     rounded-3xl
     shadow-xl
     p-8
 ">
-
-
     <h3 class="
         text-xl
         font-semibold
@@ -636,37 +489,21 @@
         items-center
         gap-3
     ">
-
         🏆 Best Seller Products Hari Ini
-
     </h3>
-
-
-
-
     <div class="
         overflow-x-auto
         border border-slate-100
         dark:border-slate-700
         rounded-2xl
     ">
-
-
-
         <table class="w-full min-w-[600px]">
-
-
             <thead>
-
-
                 <tr class="
                     border-b
                     border-slate-200
                     dark:border-slate-700
                 ">
-
-
-
                     <th class="
                         text-left
                         py-4 px-6
@@ -674,14 +511,8 @@
                         dark:text-slate-400
                         font-medium
                     ">
-
                         Nama Produk
-
                     </th>
-
-
-
-
                     <th class="
                         text-center
                         py-4 px-6
@@ -689,14 +520,8 @@
                         dark:text-slate-400
                         font-medium
                     ">
-
                         Stok Saat Ini
-
                     </th>
-
-
-
-
                     <th class="
                         text-center
                         py-4 px-6
@@ -704,64 +529,31 @@
                         dark:text-slate-400
                         font-medium
                     ">
-
                         Unit Terjual
-
                     </th>
-
-
-
                 </tr>
-
-
             </thead>
-
-
-
-
-
             <tbody class="
                 text-slate-700
                 dark:text-slate-200
-
                 divide-y
                 divide-slate-200
                 dark:divide-slate-700
             ">
-
-
-
-
                 @forelse($produkTerlaris as $produk)
-
-
-
                 <tr>
-
-
-
                     <td class="
                         py-4
                         px-6
                         font-medium
                     ">
-
-
                         {{ $produk->nama }}
-
-
                     </td>
-
-
-
-
                     <td class="
                         text-center
                         py-4
                         px-6
                     ">
-
-
                         {{ $produk->stok }}
                     </td>
                     <td class="
