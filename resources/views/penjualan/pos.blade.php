@@ -52,16 +52,24 @@
 
                     {{-- Form Tambah Item (Menggunakan route itempenjualan.store) --}}
                     <form action="{{ route('itempenjualan.store') }}" method="POST" class="mt-4 flex items-center gap-2">
-                        @csrf
-                        <input type="hidden" name="penjualan_id" value="{{ $sale->id }}">
-                        <input type="hidden" name="produk_id" value="{{ $prod->id }}">
-                        <input type="number" name="kuantitas" value="1" min="1" max="{{ $prod->stok }}"
-                            class="w-20 border border-gray-300 rounded-lg px-3 py-2 text-center outline-none focus:ring-2 focus:ring-[#0A2540]">
-                        <button type="submit"
-                            class="flex-1 bg-[#0A2540] hover:bg-[#12395f] text-white py-2 rounded-lg font-semibold transition text-sm">
-                            <i class="fa-solid fa-plus mr-1"></i> Tambah
-                        </button>
-                    </form>
+    @csrf
+
+    <input type="hidden" name="produk_id" value="{{ $prod->id }}">
+
+    <input
+        type="number"
+        name="kuantitas"
+        value="1"
+        min="1"
+        max="{{ $prod->stok }}"
+        class="w-20 border border-gray-300 rounded-lg px-3 py-2 text-center"
+    >
+
+    <button type="submit"
+        class="flex-1 bg-[#0A2540] text-white py-2 rounded-lg">
+        Tambah
+    </button>
+</form>
                 </div>
                 @empty
                 <p class="text-gray-500 col-span-2 text-center py-8">Produk tidak ditemukan</p>

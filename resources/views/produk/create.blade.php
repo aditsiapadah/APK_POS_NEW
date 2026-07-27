@@ -14,6 +14,25 @@
         </div>
 
         <div>
+    <label class="block text-sm font-medium text-slate-700 mb-1">
+        Jenis Produk
+    </label>
+
+    <select 
+        name="jenis_produk" 
+        required
+        class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
+        
+        <option value=""></option>
+        <option value="Makanan">Makanan</option>
+        <option value="Minuman">Minuman</option>
+        <option value="Elektronik">Elektronik</option>
+        <option value="Lainnya">Lainnya</option>
+
+    </select>
+</div>
+
+        <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Foto Produk</label>
             <input type="file" name="foto" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none bg-white">
         </div>
@@ -25,8 +44,15 @@
 
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Harga Jual (Rp)</label>
-            <input type="number" name="harga" required min="0" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
+            <input
+                type="number"
+                name="harga_jual"
+                required
+                min="0"
+                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
         </div>
+
+        
 
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Stok</label>
