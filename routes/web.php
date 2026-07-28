@@ -7,6 +7,8 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RiwayatTransaksiController;
+use App\Http\Controllers\SettingController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -41,5 +43,20 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/penjualan/{id}/bayar',
             [PenjualanController::class, 'konfirmasiBayar']
             )->name('penjualan.bayar');
+                // Riwayat Transaksi
+        Route::get('/riwayat-transaksi',
+            [RiwayatTransaksiController::class, 'index']
+            )->name('riwayat.index');
+
+        Route::get('/riwayat-transaksi/{id}',
+            [RiwayatTransaksiController::class, 'show']
+            )->name('riwayat.show');
+    });
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/pengaturan', [SettingController::class, 'index'])->name('pengaturan.index');
+        Route::put('/pengaturan', [SettingController::class, 'update'])->name('pengaturan.update');
+        Route::get('/pengaturan/edit', [SettingController::class, 'edit'])->name('pengaturan.edit');
+        Route::put('/pengaturan', [SettingController::class, 'update'])->name('pengaturan.update');
     });
 });
