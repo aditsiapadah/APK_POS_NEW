@@ -4,15 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ItemPenjualan;
 use App\Models\Produk;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-use App\Models\ItemPenjualan;
->>>>>>> 49def9d (update projek)
-=======
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
->>>>>>> e5fa7ac (Update fitur baru)
 
 class ProdukController extends Controller
 {
@@ -57,7 +50,7 @@ class ProdukController extends Controller
             'stok'          => 'required|numeric',
         ]);
 
-        // Jika ada foto baru
+        // Upload foto baru jika ada
         if ($request->hasFile('foto')) {
 
             // Hapus foto lama
@@ -65,7 +58,6 @@ class ProdukController extends Controller
                 Storage::disk('public')->delete($produk->foto);
             }
 
-            // Upload foto baru
             $produk->foto = $request->file('foto')->store('produk', 'public');
         }
 
@@ -79,39 +71,15 @@ class ProdukController extends Controller
 
         return redirect()
             ->route('produk.index')
-<<<<<<< HEAD
-<<<<<<< HEAD
-            ->with('success','Produk berhasil diperbarui');
-    }
-
-}
-=======
-            ->with('success', 'Produk berhasil diperbarui');
-    }
-
-=======
             ->with('success', 'Produk berhasil diperbarui.');
     }
 
->>>>>>> e5fa7ac (Update fitur baru)
     public function destroy(Produk $produk)
     {
+        // Cek apakah produk digunakan pada transaksi
         $digunakan = ItemPenjualan::where('produk_id', $produk->id)->exists();
 
         if ($digunakan) {
-<<<<<<< HEAD
-            return redirect()->route('produk.index')
-                ->with('error', 'Produk sedang digunakan pada transaksi dan tidak dapat dihapus.');
-        }
-
-        $produk->delete();
-
-        return redirect()->route('produk.index')
-            ->with('success', 'Produk berhasil dihapus.');
-    }
-}
->>>>>>> 49def9d (update projek)
-=======
             return redirect()
                 ->route('produk.index')
                 ->with('error', 'Produk sedang digunakan pada transaksi dan tidak dapat dihapus.');
@@ -129,4 +97,3 @@ class ProdukController extends Controller
             ->with('success', 'Produk berhasil dihapus.');
     }
 }
->>>>>>> e5fa7ac (Update fitur baru)
