@@ -20,14 +20,27 @@ class ProdukFactory extends Factory
     {
         $hargaBeli = $this->faker->numberBetween(10_000, 500_000);
 <<<<<<< HEAD
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> e5fa7ac (Update fitur baru)
         return [
             'user_id' => User::where('role_id', 1)->inRandomOrder()->value('id'),
-            'foto'=> 'produk' . $this->faker->uuid . '.jpg',
-            'nama'=> $this->faker->words(3, true),
+            'foto' => 'produk' . $this->faker->uuid . '.jpg',
+            'nama' => $this->faker->words(3, true),
+
+            'jenis_produk' => $this->faker->randomElement([
+            'Makanan',
+            'Minuman',
+            'Elektronik',
+            'Lainnya',
+        ]),
+
             'harga_beli' => $hargaBeli,
             'harga_jual' => $hargaBeli + $this->faker->numberBetween(5_000, 100_000),
             'stok' => $this->faker->numberBetween(1, 500),
+<<<<<<< HEAD
 
 =======
 
@@ -46,6 +59,8 @@ class ProdukFactory extends Factory
             'harga_jual' => $hargaBeli + $this->faker->numberBetween(5_000, 100_000),
             'stok' => $this->faker->numberBetween(1, 500),
 >>>>>>> 49def9d (update projek)
+=======
+>>>>>>> e5fa7ac (Update fitur baru)
         ];
     }
 }

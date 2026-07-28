@@ -4,217 +4,171 @@
 
 @section('content')
 
-<div class="max-w-xl mx-auto bg-white rounded-xl shadow-sm border border-slate-100 p-6">
+<div class="max-w-2xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-8">
 
-    <h2 class="text-xl font-bold text-slate-800 mb-6">
-        Edit Data Produk
-    </h2>
+    <div class="mb-8">
+        <h2 class="text-2xl font-bold text-slate-800 dark:text-white">
+            Edit Produk
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400 mt-1">
+            Perbarui data produk di bawah ini.
+        </p>
+    </div>
 
+    @if ($errors->any())
+        <div class="mb-6 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-200 rounded-xl p-4">
+            <ul class="list-disc list-inside space-y-1">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-    <form action="{{ route('produk.update', $produk->id) }}" 
-        method="POST" 
-        enctype="multipart/form-data" 
-        class="space-y-4">
+    <form action="{{ route('produk.update', $produk->id) }}"
+        method="POST"
+        enctype="multipart/form-data"
+        class="space-y-6">
 
         @csrf
         @method('PUT')
 
-
         {{-- Nama Produk --}}
         <div>
-
-            <label class="block text-sm font-medium text-slate-700 mb-1">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
                 Nama Produk
             </label>
 
-            <input 
+            <input
                 type="text"
                 name="nama"
                 value="{{ old('nama', $produk->nama) }}"
-                required
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
-
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                required>
         </div>
-
-
 
         {{-- Jenis Produk --}}
         <div>
-
-            <label class="block text-sm font-medium text-slate-700 mb-1">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
                 Jenis Produk
             </label>
 
-
-            <select 
+            <select
                 name="jenis_produk"
-                required
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                required>
 
+                <option value=""></option>
 
-                <option value="">
-                    
-                </option>
-
-
-                <option value="Makanan"
-                    {{ $produk->jenis_produk == 'Makanan' ? 'selected' : '' }}>
+                <option value="Makanan" {{ old('jenis_produk', $produk->jenis_produk) == 'Makanan' ? 'selected' : '' }}>
                     Makanan
                 </option>
 
-
-                <option value="Minuman"
-                    {{ $produk->jenis_produk == 'Minuman' ? 'selected' : '' }}>
+                <option value="Minuman" {{ old('jenis_produk', $produk->jenis_produk) == 'Minuman' ? 'selected' : '' }}>
                     Minuman
                 </option>
 
-
-                <option value="Elektronik"
-                    {{ $produk->jenis_produk == 'Elektronik' ? 'selected' : '' }}>
+                <option value="Elektronik" {{ old('jenis_produk', $produk->jenis_produk) == 'Elektronik' ? 'selected' : '' }}>
                     Elektronik
                 </option>
 
-                <option value="Lainnya"
-                    {{ $produk->jenis_produk == 'Lainnya' ? 'selected' : '' }}>
+                <option value="Lainnya" {{ old('jenis_produk', $produk->jenis_produk) == 'Lainnya' ? 'selected' : '' }}>
                     Lainnya
                 </option>
 
-
             </select>
-
         </div>
 
-
-
-
-
-        {{-- Foto Produk --}}
+        {{-- Foto --}}
         <div>
 
-            <label class="block text-sm font-medium text-slate-700 mb-1">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
                 Foto Produk
-                <span class="text-xs text-slate-400">
-                    (Kosongkan jika tidak diganti)
-                </span>
             </label>
 
-
             @if($produk->foto)
-
-            <img 
-                src="{{ asset('storage/'.$produk->foto) }}"
-                class="w-24 h-24 rounded-lg object-cover border mb-3">
-
-
+                <div class="mb-4">
+                    <img
+                        src="{{ asset('storage/' . $produk->foto) }}"
+                        alt="{{ $produk->nama }}"
+                        class="w-28 h-28 rounded-xl object-cover border border-slate-300 dark:border-slate-600 shadow">
+                </div>
             @endif
 
-
-
-            <input 
+            <input
                 type="file"
                 name="foto"
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white">
+                accept="image/*"
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-white px-4 py-3">
+
+            <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                Kosongkan jika tidak ingin mengganti foto.
+            </p>
 
         </div>
-
-
-
-
 
         {{-- Harga Beli --}}
         <div>
-
-            <label class="block text-sm font-medium text-slate-700 mb-1">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
                 Harga Beli (Rp)
             </label>
 
-
-            <input 
+            <input
                 type="number"
                 name="harga_beli"
-                value="{{ old('harga_beli',$produk->harga_beli) }}"
-                required
+                value="{{ old('harga_beli', $produk->harga_beli) }}"
                 min="0"
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
-
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                required>
         </div>
-
-
-
-
 
         {{-- Harga Jual --}}
         <div>
-
-            <label class="block text-sm font-medium text-slate-700 mb-1">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
                 Harga Jual (Rp)
             </label>
 
-
-            <input 
+            <input
                 type="number"
                 name="harga_jual"
-                value="{{ old('harga_jual',$produk->harga_jual) }}"
-                required
+                value="{{ old('harga_jual', $produk->harga_jual) }}"
                 min="0"
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
-
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                required>
         </div>
-
-
-
-
 
         {{-- Stok --}}
         <div>
-
-            <label class="block text-sm font-medium text-slate-700 mb-1">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
                 Stok
             </label>
 
-
-            <input 
+            <input
                 type="number"
                 name="stok"
-                value="{{ old('stok',$produk->stok) }}"
-                required
+                value="{{ old('stok', $produk->stok) }}"
                 min="0"
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500">
-
+                class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                required>
         </div>
-
-
-
-
-
 
         {{-- Tombol --}}
-        <div class="flex justify-end space-x-3 pt-4">
-
+        <div class="flex justify-end gap-3 pt-4">
 
             <a href="{{ route('produk.index') }}"
-                class="bg-slate-100 text-slate-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-200">
-
-                Batal
-
+                class="px-5 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 transition font-semibold">
+                Kembali
             </a>
 
-
-
-            <button 
+            <button
                 type="submit"
-                class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
-
-                Perbarui
-
+                class="px-5 py-3 rounded-xl bg-[#0A2540] hover:bg-[#12395f] text-white font-semibold transition">
+                Simpan Perubahan
             </button>
-
 
         </div>
 
-
     </form>
-
 
 </div>
 

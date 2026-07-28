@@ -17,7 +17,7 @@ class PenjualanSeeder extends Seeder
         DB::transaction(function () {
 
             Penjualan::factory()
-                ->count(50)
+                ->count(20)
                 ->create()
                 ->each(function ($penjualan) {
 

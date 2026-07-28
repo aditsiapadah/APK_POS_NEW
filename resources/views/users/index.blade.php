@@ -6,7 +6,7 @@
 
 <div class="space-y-6">
 
-    <!-- Header -->
+    {{-- Header --}}
     <div class="flex justify-between items-center">
         <div>
             <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
@@ -23,12 +23,12 @@
         </a>
     </div>
 
-    <!-- Search Card -->
+    {{-- Search --}}
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6">
 
         <form method="GET"
             action="{{ route('admin.users') }}"
-            class="relative w-80">
+            class="relative w-full md:w-80">
 
             <i class="fa-solid fa-search absolute left-4 top-3.5 text-gray-400 dark:text-gray-500"></i>
 
@@ -48,7 +48,7 @@
 
     </div>
 
-    <!-- Table -->
+    {{-- Table --}}
     <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg overflow-hidden">
 
         <table class="w-full">
@@ -82,7 +82,7 @@
                     </td>
 
                     <td class="px-8 py-5">
-                        @if($user->role->name == "Admin")
+                        @if($user->role->name == 'Admin')
                             <span class="bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 px-4 py-1 rounded-full text-sm">
                                 Admin
                             </span>
@@ -97,26 +97,30 @@
 
                         <div class="flex justify-center gap-2">
 
-                            <!-- Edit -->
-                            <a href="{{ route('admin.users.edit',$user->id) }}"
+                            {{-- Edit --}}
+                            <a href="{{ route('admin.users.edit', $user->id) }}"
                                 class="w-10 h-10 rounded-lg
                                        bg-yellow-400 hover:bg-yellow-500
                                        flex items-center justify-center
                                        text-white transition">
+
                                 <i class="fa-solid fa-pen"></i>
+
                             </a>
 
-                            <!-- Delete -->
-                            <form action="{{ route('admin.users.destroy',$user->id) }}"
-                                method="POST">
+                            {{-- Delete --}}
+                            <form action="{{ route('admin.users.destroy', $user->id) }}"
+                                method="POST"
+                                class="delete-form">
 
                                 @csrf
                                 @method('DELETE')
 
                                 <button
-                                    onclick="return confirm('Hapus user ini?')"
+                                    type="submit"
                                     class="w-10 h-10 rounded-lg
                                            bg-red-500 hover:bg-red-600
+                                           flex items-center justify-center
                                            text-white transition">
 
                                     <i class="fa-solid fa-trash"></i>
@@ -152,11 +156,64 @@
 
     </div>
 
-    <!-- Pagination -->
+    {{-- Pagination --}}
     <div class="mt-8 dark:text-white">
         {{ $users->links() }}
     </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Berhasil',
+    text: "{{ session('success') }}",
+    confirmButtonColor: '#0A2540'
+});
+</script>
+@endif
+
+@if(session('error'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Gagal',
+    text: "{{ session('error') }}",
+    confirmButtonColor: '#d33'
+});
+</script>
+@endif
+
+<script>
+document.querySelectorAll('.delete-form').forEach(function(form) {
+
+    form.addEventListener('submit', function(e) {
+
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Hapus User?',
+            text: 'Apakah Anda yakin ingin menghapus user ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                form.submit();
+            }
+
+        });
+
+    });
+
+});
+</script>
 
 @endsection
