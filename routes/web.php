@@ -27,16 +27,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/produk/{produk}', [ProdukController::class, 'show'])->name('admin.produk.show');
     });
 
-    Route::middleware(['role:Admin,Kasir'])->group(function () {
+        Route::middleware(['role:Admin,Kasir'])->group(function () {
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);
-        Route::get('/penjualan/{penjualan}/detail',
-        [PenjualanController::class,'show']
-            )->name('penjualan.show');
         Route::get('/penjualan/{penjualan}/cetak',
             [PenjualanController::class,'cetak']
             )->name('penjualan.cetak');
-        Route::resource('/itempenjualan', ItemPenjualanController::class);
+        // QRIS
+        Route::get('/penjualan/{id}/qris',
+            [PenjualanController::class, 'qris']
+            )->name('penjualan.qris');
+        Route::post('/penjualan/{id}/bayar',
+            [PenjualanController::class, 'konfirmasiBayar']
+            )->name('penjualan.bayar');
     });
 });
