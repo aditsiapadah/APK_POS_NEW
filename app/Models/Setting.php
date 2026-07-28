@@ -12,8 +12,14 @@ class Setting extends Model
     'telepon',
     'email',
     'logo',
+
     'bahasa',
     'mata_uang',
     'per_page',
+
+    'nama_aplikasi',
+    'versi_aplikasi',
+    'deskripsi_aplikasi',
+    'developer',
 ];
 }

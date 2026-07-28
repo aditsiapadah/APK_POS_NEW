@@ -58,5 +58,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/pengaturan', [SettingController::class, 'update'])->name('pengaturan.update');
         Route::get('/pengaturan/edit', [SettingController::class, 'edit'])->name('pengaturan.edit');
         Route::put('/pengaturan', [SettingController::class, 'update'])->name('pengaturan.update');
+        Route::get('/pengaturan/tentang', function () {
+        return view('pengaturan.tentang');
+        })->name('pengaturan.tentang');
     });
 });
