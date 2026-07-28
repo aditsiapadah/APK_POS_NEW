@@ -125,45 +125,59 @@
 
                         <div class="flex justify-center gap-2">
 
-                            {{-- Detail --}}
-                            <a href="{{ route('penjualan.show', $item->id) }}"
-                                class="w-10 h-10 rounded-lg bg-blue-500 hover:bg-blue-600
-                                flex items-center justify-center text-white transition"
-                                title="Detail">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
+    {{-- Detail --}}
+    <a href="{{ route('penjualan.show', $item->id) }}"
+        class="w-10 h-10 rounded-lg bg-blue-500 hover:bg-blue-600
+        flex items-center justify-center text-white transition"
+        title="Detail">
+        <i class="fa-solid fa-eye"></i>
+    </a>
 
-                            @if(auth()->user()->role->name == 'Admin')
 
-                            {{-- Edit --}}
-                            <a href="{{ route('penjualan.edit', $item->id) }}"
-                                class="w-10 h-10 rounded-lg bg-yellow-400 hover:bg-yellow-500
-                                flex items-center justify-center text-white transition"
-                                title="Edit">
-                                <i class="fa-solid fa-pen"></i>
-                            </a>
+    {{-- Cetak --}}
+    <a href="{{ route('penjualan.cetak', $item->id) }}"
+        target="_blank"
+        class="w-10 h-10 rounded-lg bg-green-500 hover:bg-green-600
+        flex items-center justify-center text-white transition"
+        title="Cetak">
 
-                            {{-- Delete --}}
-                            <form action="{{ route('penjualan.destroy', $item->id) }}" method="POST">
+        <i class="fa-solid fa-print"></i>
 
-                                @csrf
-                                @method('DELETE')
+    </a>
 
-                                <button type="submit"
-                                    onclick="return confirm('Hapus data penjualan ini?')"
-                                    class="w-10 h-10 rounded-lg bg-red-500 hover:bg-red-600
-                                    flex items-center justify-center text-white transition"
-                                    title="Hapus">
 
-                                    <i class="fa-solid fa-trash"></i>
+    @if(auth()->user()->role->name == 'Admin')
 
-                                </button>
+    {{-- Edit --}}
+    <a href="{{ route('penjualan.edit', $item->id) }}"
+        class="w-10 h-10 rounded-lg bg-yellow-400 hover:bg-yellow-500
+        flex items-center justify-center text-white transition"
+        title="Edit">
+        <i class="fa-solid fa-pen"></i>
+    </a>
 
-                            </form>
 
-                            @endif
+    {{-- Delete --}}
+    <form action="{{ route('penjualan.destroy', $item->id) }}" method="POST">
 
-                        </div>
+        @csrf
+        @method('DELETE')
+
+        <button type="submit"
+            onclick="return confirm('Hapus data penjualan ini?')"
+            class="w-10 h-10 rounded-lg bg-red-500 hover:bg-red-600
+            flex items-center justify-center text-white transition"
+            title="Hapus">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+    </form>
+
+    @endif
+
+</div>
 
                     </td>
 

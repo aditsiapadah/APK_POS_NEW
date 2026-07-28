@@ -148,5 +148,14 @@ class PenjualanController extends Controller
             compact('penjualan')
         );
     }
+    public function cetak($id)
+{
+    $penjualan = Penjualan::with([
+        'user',
+        'itemPenjualan.produk'
+    ])->findOrFail($id);
+
+    return view('penjualan/cetak', compact('penjualan'));
+}
 }
 
