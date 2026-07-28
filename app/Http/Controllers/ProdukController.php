@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+<<<<<<< HEAD
+=======
+use App\Models\ItemPenjualan;
+>>>>>>> 49def9d (update projek)
 
 class ProdukController extends Controller
 {
@@ -56,7 +60,28 @@ class ProdukController extends Controller
 
         return redirect()
             ->route('produk.index')
+<<<<<<< HEAD
             ->with('success','Produk berhasil diperbarui');
     }
 
 }
+=======
+            ->with('success', 'Produk berhasil diperbarui');
+    }
+
+    public function destroy(Produk $produk)
+    {
+        $digunakan = ItemPenjualan::where('produk_id', $produk->id)->exists();
+
+        if ($digunakan) {
+            return redirect()->route('produk.index')
+                ->with('error', 'Produk sedang digunakan pada transaksi dan tidak dapat dihapus.');
+        }
+
+        $produk->delete();
+
+        return redirect()->route('produk.index')
+            ->with('success', 'Produk berhasil dihapus.');
+    }
+}
+>>>>>>> 49def9d (update projek)

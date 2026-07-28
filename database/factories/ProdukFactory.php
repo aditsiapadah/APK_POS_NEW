@@ -19,6 +19,7 @@ class ProdukFactory extends Factory
     public function definition(): array
     {
         $hargaBeli = $this->faker->numberBetween(10_000, 500_000);
+<<<<<<< HEAD
         
         return [
             'user_id' => User::where('role_id', 1)->inRandomOrder()->value('id'),
@@ -28,6 +29,23 @@ class ProdukFactory extends Factory
             'harga_jual' => $hargaBeli + $this->faker->numberBetween(5_000, 100_000),
             'stok' => $this->faker->numberBetween(1, 500),
 
+=======
+
+        return [
+            'user_id' => User::where('role_id', 1)->inRandomOrder()->value('id'),
+            'foto' => 'produk' . $this->faker->uuid . '.jpg',
+            'nama' => $this->faker->words(3, true),
+
+            'jenis_produk' => $this->faker->randomElement([
+                'Makanan',
+                'Minuman',
+                'Snack',
+            ]),
+
+            'harga_beli' => $hargaBeli,
+            'harga_jual' => $hargaBeli + $this->faker->numberBetween(5_000, 100_000),
+            'stok' => $this->faker->numberBetween(1, 500),
+>>>>>>> 49def9d (update projek)
         ];
     }
 }

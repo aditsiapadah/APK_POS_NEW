@@ -84,7 +84,11 @@
                     {{-- Foto --}}
                     <td class="px-8 py-5">
                         @if($item->foto)
+<<<<<<< HEAD
                         <img 
+=======
+                        <img
+>>>>>>> 49def9d (update projek)
                             src="{{ asset('storage/'.$item->foto) }}"
                             class="w-14 h-14 rounded-lg object-cover border dark:border-slate-600">
                         @else
@@ -146,6 +150,7 @@
                             </a>
                             {{-- Delete --}}
                             <form action="{{ route('produk.destroy',$item->id) }}"
+<<<<<<< HEAD
                                 method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -154,6 +159,18 @@
                                     class="w-10 h-10 rounded-lg
                                     bg-red-500 hover:bg-red-600
                                     text-white transition">
+=======
+                                method="POST"
+                                class="delete-form">
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    type="submit"
+                                    class="w-10 h-10 rounded-lg
+                                bg-red-500 hover:bg-red-600
+                                text-white transition">
+>>>>>>> 49def9d (update projek)
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
@@ -177,4 +194,59 @@
     </div>
 </div>
 
+<<<<<<< HEAD
+=======
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: "{{ session('success') }}",
+        confirmButtonColor: '#0A2540'
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Tidak dapat dihapus',
+        text: "{{ session('error') }}",
+        confirmButtonColor: '#d33'
+    });
+</script>
+@endif
+
+<script>
+    document.querySelectorAll('.delete-form').forEach(function(form) {
+
+        form.addEventListener('submit', function(e) {
+
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Hapus Produk?',
+                text: 'Apakah Anda yakin ingin menghapus produk ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+
+            });
+
+        });
+
+    });
+</script>
+>>>>>>> 49def9d (update projek)
 @endsection

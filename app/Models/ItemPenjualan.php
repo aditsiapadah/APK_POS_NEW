@@ -10,7 +10,11 @@ class ItemPenjualan extends Model
     use HasFactory;
 
     protected $table = 'item_penjualan';
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 49def9d (update projek)
     protected $fillable = [
         'penjualan_id',
         'produk_id',
@@ -25,6 +29,10 @@ class ItemPenjualan extends Model
     }
     public function penjualan()
     {
+<<<<<<< HEAD
         return $this->belongsTo(Penjualan::class, 'penjualan_id');
+=======
+        return $this->belongsTo(Penjualan::class);
+>>>>>>> 49def9d (update projek)
     }
 }
