@@ -118,10 +118,24 @@ class UserController extends Controller
             ->with('success', 'Data user berhasil diperbarui.');
     }
 
-    public function destroy(User $user)
+        public function destroy(User $user)
     {
         if ($redirect = $this->checkAdmin()) {
             return $redirect;
+        }
+
+        // Tidak boleh menghapus akun sendiri
+        if (Auth::id() == $user->id) {
+            return redirect()
+                ->route('admin.users')
+                ->with('error', 'Anda tidak dapat menghapus akun yang sedang digunakan.');
+        }
+
+        // Cek apakah user masih memiliki transaksi
+        if ($user->penjualan()->exists()) {
+            return redirect()
+                ->route('admin.users')
+                ->with('error', 'User tidak dapat dihapus karena masih memiliki data penjualan.');
         }
 
         $user->delete();
