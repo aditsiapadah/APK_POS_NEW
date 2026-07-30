@@ -13,10 +13,6 @@
         <p class="text-slate-600 dark:text-slate-300">
             {{ $tanggalHariIni->translatedFormat('l, d F Y') }}
         </p>
-        <p class="text-slate-600 dark:text-slate-300">
-            <i class="fa-regular fa-clock mr-1"></i>
-            <span id="jam"></span> WIB
-        </p>
     </div>
 </div>
 

@@ -100,34 +100,32 @@
                             {{-- Edit --}}
                             <a href="{{ route('admin.users.edit', $user->id) }}"
                                 class="w-10 h-10 rounded-lg
-                                       bg-yellow-400 hover:bg-yellow-500
-                                       flex items-center justify-center
-                                       text-white transition">
-
+                                    bg-yellow-400 hover:bg-yellow-500
+                                    flex items-center justify-center
+                                    text-white transition">
                                 <i class="fa-solid fa-pen"></i>
-
                             </a>
 
-                            {{-- Delete --}}
-                            <form action="{{ route('admin.users.destroy', $user->id) }}"
-                                method="POST"
-                                class="delete-form">
+                            {{-- Hapus hanya jika bukan user yang sedang login --}}
+                            @if($user->id != auth()->id())
 
-                                @csrf
-                                @method('DELETE')
+                                <form action="{{ route('admin.users.destroy', $user->id) }}"
+                                    method="POST"
+                                    class="delete-form">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <button
-                                    type="submit"
-                                    class="w-10 h-10 rounded-lg
-                                           bg-red-500 hover:bg-red-600
-                                           flex items-center justify-center
-                                           text-white transition">
+                                    <button type="submit"
+                                        class="w-10 h-10 rounded-lg
+                                            bg-red-500 hover:bg-red-600
+                                            flex items-center justify-center
+                                            text-white transition">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
 
-                                    <i class="fa-solid fa-trash"></i>
+                                </form>
 
-                                </button>
-
-                            </form>
+                            @endif
 
                         </div>
 

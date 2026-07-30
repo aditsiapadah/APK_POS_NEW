@@ -152,17 +152,18 @@ class PenjualanController extends Controller
 
         // CASH dan TRANSFER langsung selesai
         $penjualan->update([
-            'status' => 'COMPLETED'
+            'status' => $request->status
         ]);
 
-
+        if ($request->status == 'OPEN') {
+            return redirect()
+                ->route('penjualan.index')
+                ->with('success', 'Transaksi berhasil disimpan sebagai OPEN');
+        }
 
         return redirect()
             ->route('penjualan.index')
-            ->with(
-                'success',
-                'Transaksi berhasil diselesaikan'
-            );
+            ->with('success', 'Transaksi berhasil diselesaikan');
     }
 
 

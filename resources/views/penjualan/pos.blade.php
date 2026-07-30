@@ -130,21 +130,41 @@
                         </select>
                     </div>
 
-                    <button type="submit"
-                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold shadow-lg transition mb-3 text-center">
-                        Selesaikan Transaksi
-                    </button>
-                </form>
+                     <div class="grid gap-4">
 
-                {{-- Tombol Batalkan Transaksi --}}
-                <form action="{{ route('penjualan.destroy', $sale->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Batalkan transaksi ini?')"
-                        class="w-full bg-red-500 hover:bg-red-600 text-white py-2.5 rounded-xl font-semibold transition text-sm">
-                        Batalkan Transaksi
-                    </button>
-                </form>
+                            <button type="submit"
+                                name="status"
+                                value="OPEN"
+                                class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-xl font-bold shadow-lg transition">
+                                💾 Simpan OPEN
+                            </button>
+
+                            <button type="submit"
+                                name="status"
+                                value="COMPLETED"
+                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold shadow-lg transition">
+                                <i class="fa-solid fa-check mr-2"></i>
+                                Selesaikan Transaksi
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <hr class="my-6 border-gray-200">
+
+                    {{-- Form Batalkan --}}
+                    <form action="{{ route('penjualan.destroy', $sale->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                            onclick="return confirm('Batalkan transaksi ini?')"
+                            class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-semibold transition">
+                            <i class="fa-solid fa-trash mr-2"></i>
+                            Batalkan Transaksi
+                        </button>
+                    </form>
             </div>
         </div>
 
