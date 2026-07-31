@@ -131,6 +131,13 @@ class UserController extends Controller
                 ->with('error', 'Anda tidak dapat menghapus akun yang sedang digunakan.');
         }
 
+        // Cek apakah user masih memiliki produk
+        if ($user->produk()->exists()) {
+            return redirect()
+                ->route('admin.users')
+                ->with('error', 'User tidak dapat dihapus karena masih memiliki data produk.');
+        }
+
         // Cek apakah user masih memiliki transaksi
         if ($user->penjualan()->exists()) {
             return redirect()
