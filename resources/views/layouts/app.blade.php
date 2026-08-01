@@ -19,11 +19,9 @@
 
 
     <script>
-
         tailwind.config = {
             darkMode: 'class'
         }
-
     </script>
 
 
@@ -40,13 +38,11 @@
 
     {{-- Dark Mode --}}
     <script>
-
         if (localStorage.getItem('theme') === 'dark') {
 
             document.documentElement.classList.add('dark');
 
         }
-
     </script>
 
 
@@ -54,7 +50,6 @@
 
 
     <style>
-
         body {
             font-family: 'Inter', sans-serif;
         }
@@ -150,7 +145,7 @@
 
             transform: translateY(-8px);
 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
         }
 
@@ -170,12 +165,9 @@
 
             transform: translateY(-8px);
 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
         }
-
-
-
     </style>
 
 
@@ -194,7 +186,7 @@
 
 
 
-@if(auth()->check())
+    @if(auth()->check())
 
 
 
@@ -257,7 +249,7 @@
 
 
 
-@else
+    @else
 
 
 
@@ -267,7 +259,7 @@
 
 
 
-@endif
+    @endif
 
 
 
@@ -275,41 +267,38 @@
 
 
 
-{{-- SweetAlert Notification --}}
+    {{-- SweetAlert Notification --}}
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
 
-@if(session('success'))
-
-<script>
-
-Swal.fire({
-
-    title: 'Berhasil!',
-
-    text: "{{ session('success') }}",
-
-    icon: 'success',
-
-    confirmButtonColor: '#0A2540',
-
-    confirmButtonText: 'OK',
-
-    timer: 2500,
-
-    timerProgressBar: true
-
-});
 
 
-</script>
+    @if(session('success'))
 
-@endif
+    <script>
+        Swal.fire({
+
+            title: 'Berhasil!',
+
+            text: "{{ session('success') }}",
+
+            icon: 'success',
+
+            confirmButtonColor: '#0A2540',
+
+            confirmButtonText: 'OK',
+
+            timer: 2500,
+
+            timerProgressBar: true
+
+        });
+    </script>
+
+    @endif
 
 
 
@@ -317,28 +306,25 @@ Swal.fire({
 
 
 
-@if(session('error'))
+    @if(session('error'))
 
-<script>
+    <script>
+        Swal.fire({
 
-Swal.fire({
+            title: 'Gagal!',
 
-    title: 'Gagal!',
+            text: "{{ session('error') }}",
 
-    text: "{{ session('error') }}",
+            icon: 'error',
 
-    icon: 'error',
+            confirmButtonColor: '#0A2540',
 
-    confirmButtonColor: '#0A2540',
+            confirmButtonText: 'OK'
 
-    confirmButtonText: 'OK'
+        });
+    </script>
 
-});
-
-
-</script>
-
-@endif
+    @endif
 
 
 
