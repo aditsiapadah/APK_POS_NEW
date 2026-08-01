@@ -10,16 +10,23 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\SettingController;
 
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'index'])->name('login');
-    Route::post('/login', [AuthController::class, 'auth'])->name('auth');
-});
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [AuthController::class, 'index'])->name('login');
+        Route::post('/login', [AuthController::class, 'auth'])->name('auth');
+        Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        // Lupa Password
+        Route::get('/forgot-password', [AuthController::class, 'showForgotForm'])->name('password.request');
+        Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
+        Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+        Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+    });
 
-    Route::middleware('role:Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+        Route::middleware('role:Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('users'); 
         Route::get('/users/create',  [UserController::class, 'create'])->name('users.create');
         Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
@@ -29,37 +36,28 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/produk/{produk}', [ProdukController::class, 'show'])->name('admin.produk.show');
     });
 
-        Route::middleware(['role:Admin,Kasir'])->group(function () {
+    Route::middleware(['role:Admin,Kasir'])->group(function () {
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);
-        Route::get('/penjualan/{penjualan}/cetak',
-            [PenjualanController::class,'cetak']
-            )->name('penjualan.cetak');
+        
+        Route::get('/penjualan/{penjualan}/cetak', [PenjualanController::class,'cetak'])->name('penjualan.cetak');
+        
         // QRIS
-        Route::get('/penjualan/{id}/qris',
-            [PenjualanController::class, 'qris']
-            )->name('penjualan.qris');
-        Route::post('/penjualan/{id}/bayar',
-            [PenjualanController::class, 'konfirmasiBayar']
-            )->name('penjualan.bayar');
-                // Riwayat Transaksi
-        Route::get('/riwayat-transaksi',
-            [RiwayatTransaksiController::class, 'index']
-            )->name('riwayat.index');
-
-        Route::get('/riwayat-transaksi/{id}',
-            [RiwayatTransaksiController::class, 'show']
-            )->name('riwayat.show');
+        Route::get('/penjualan/{id}/qris', [PenjualanController::class, 'qris'])->name('penjualan.qris');
+        Route::post('/penjualan/{id}/bayar', [PenjualanController::class, 'konfirmasiBayar'])->name('penjualan.bayar');
+        
+        // Riwayat Transaksi
+        Route::get('/riwayat-transaksi', [RiwayatTransaksiController::class, 'index'])->name('riwayat.index');
+        Route::get('/riwayat-transaksi/{id}', [RiwayatTransaksiController::class, 'show'])->name('riwayat.show');
     });
 
     Route::middleware(['auth'])->group(function () {
         Route::get('/pengaturan', [SettingController::class, 'index'])->name('pengaturan.index');
         Route::put('/pengaturan', [SettingController::class, 'update'])->name('pengaturan.update');
         Route::get('/pengaturan/edit', [SettingController::class, 'edit'])->name('pengaturan.edit');
-        Route::put('/pengaturan', [SettingController::class, 'update'])->name('pengaturan.update');
         Route::get('/pengaturan/tentang', function () {
-        return view('pengaturan.tentang');
+            return view('pengaturan.tentang');
         })->name('pengaturan.tentang');
     });
 });
