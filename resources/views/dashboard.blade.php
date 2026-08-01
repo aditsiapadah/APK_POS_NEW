@@ -175,11 +175,15 @@
 
 
     {{-- STOK RENDAH --}}
-    <div class="
+        <div class="
         bg-white dark:bg-[#162033]
         rounded-3xl
         shadow-xl
         p-8
+        transition-all
+        duration-300
+        hover:-translate-y-2
+        hover:shadow-2xl
     ">
 
 
@@ -372,6 +376,10 @@
         rounded-3xl
         shadow-xl
         p-8
+        transition-all
+        duration-300
+        hover:-translate-y-2
+        hover:shadow-2xl
     ">
         <h3 class="
             text-xl font-semibold
@@ -474,6 +482,10 @@
     rounded-3xl
     shadow-xl
     p-8
+    transition-all
+    duration-300
+    hover:-translate-y-2
+    hover:shadow-2xl
 ">
     <h3 class="
         text-xl

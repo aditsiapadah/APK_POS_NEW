@@ -37,6 +37,7 @@
 
 
 
+
     {{-- Dark Mode --}}
     <script>
 
@@ -87,6 +88,7 @@
 
 
 
+
         .content {
 
             margin-left: 260px;
@@ -96,6 +98,7 @@
             min-height: 100vh;
 
         }
+
 
 
 
@@ -123,11 +126,54 @@
 
 
 
+
         .page {
 
             padding: 95px 32px 32px;
 
         }
+
+
+
+
+
+        /* CARD HOVER ANIMATION */
+
+        .card-hover {
+
+            transition: all 0.3s ease;
+
+        }
+
+
+        .card-hover:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+
+        }
+
+
+
+
+        /* TABLE CARD HOVER */
+
+        .table-hover {
+
+            transition: all 0.3s ease;
+
+        }
+
+
+        .table-hover:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+
+        }
+
 
 
     </style>
@@ -139,7 +185,10 @@
 
 
 
+
+
 <body class="bg-slate-100 dark:bg-slate-900">
+
 
 
 
@@ -156,6 +205,7 @@
         @include('layouts.sidebar')
 
     </div>
+
 
 
 
@@ -184,6 +234,7 @@
 
 
 
+
         {{-- Isi Halaman --}}
 
         <div class="page">
@@ -196,7 +247,10 @@
 
 
 
+
+
     </div>
+
 
 
 
@@ -228,6 +282,8 @@
 
 
 
+
+
 @if(session('success'))
 
 <script>
@@ -254,6 +310,8 @@ Swal.fire({
 </script>
 
 @endif
+
+
 
 
 
