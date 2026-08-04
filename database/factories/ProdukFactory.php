@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Produk;
 use App\Models\User;
+use App\Models\Distributor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,6 +25,7 @@ class ProdukFactory extends Factory
 
         return [
             'user_id' => User::where('role_id', 1)->inRandomOrder()->value('id'),
+            'distributor_id' => Distributor::inRandomOrder()->first()->id,
             'foto' => 'produk/' . $this->faker->uuid . '.jpg',
             'nama' => $this->faker->words(3, true),
 

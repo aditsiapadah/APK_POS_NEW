@@ -70,6 +70,23 @@
             <span class="font-medium text-sm">Produk</span>
         </a>
 
+        <!-- Distributor -->
+        <a href="{{ route('distributor.index') }}"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+        {{ request()->routeIs('distributor.*') 
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+                : 'hover:bg-white/10' }}">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center
+                {{ request()->routeIs('distributor.*') 
+                    ? 'bg-white/20' 
+                    : 'bg-white/5 group-hover:bg-white/10' }}">
+                <i class="fa-solid fa-truck text-sm"></i>
+            </div>
+            <span class="font-medium text-sm">
+                Distributor
+            </span>
+        </a>
+
         <!-- Penjualan -->
         <a href="{{ route('penjualan.index') }}"
            class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ItemPenjualan;
 use App\Models\Produk;
+use App\Models\Distributor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -14,25 +15,28 @@ class ProdukController extends Controller
     {
         $search = $request->search;
 
-        $produk = Produk::when($search, function ($query) use ($search) {
-                $query->where('nama', 'like', '%' . $search . '%')
-                      ->orWhere('jenis_produk', 'like', '%' . $search . '%');
-            })
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
+        $produk = Produk::with('distributor')
+            ->when($search, function ($query) use ($search) {
+        $query->where('nama', 'like', '%' . $search . '%')
+            ->orWhere('jenis_produk', 'like', '%' . $search . '%');
+        })
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
 
         return view('produk.index', compact('produk'));
     }
 
     public function create()
     {
-        return view('produk.create');
+        $distributors = Distributor::latest()->get();
+        return view('produk.create', compact('distributors'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'distributor_id' => 'nullable|exists:distributors,id',
             'nama'          => 'required|string|max:255',
             'jenis_produk'  => 'required|string|max:255',
             'foto'          => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -49,6 +53,7 @@ class ProdukController extends Controller
 
         Produk::create([
             'user_id'       => Auth::id(),
+            'distributor_id' => $request->distributor_id,
             'nama'          => $request->nama,
             'jenis_produk'  => $request->jenis_produk,
             'foto'          => $foto,
@@ -64,17 +69,20 @@ class ProdukController extends Controller
 
     public function show(Produk $produk)
     {
+        $produk->load('distributor');
         return view('produk.show', compact('produk'));
     }
 
     public function edit(Produk $produk)
     {
-        return view('produk.edit', compact('produk'));
+        $distributors = Distributor::latest()->get();
+        return view('produk.edit', compact('produk', 'distributors'));
     }
 
     public function update(Request $request, Produk $produk)
     {
         $request->validate([
+            'distributor_id' => 'nullable|exists:distributors,id',
             'nama'          => 'required|string|max:255',
             'jenis_produk'  => 'required|string|max:255',
             'foto'          => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -93,6 +101,7 @@ class ProdukController extends Controller
         }
 
         $produk->user_id = $produk->user_id ?? Auth::id();
+        $produk->distributor_id = $request->distributor_id;
         $produk->nama = $request->nama;
         $produk->jenis_produk = $request->jenis_produk;
         $produk->harga_beli = $request->harga_beli;

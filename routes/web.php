@@ -5,13 +5,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemPenjualanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\DistributorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\SettingController;
 
     Route::middleware('guest')->group(function () {
-        Route::get('/login', [AuthController::class, 'index'])->name('login');
+        Route::get('/', [AuthController::class, 'index'])->name('login');
         Route::post('/login', [AuthController::class, 'auth'])->name('auth');
         Route::post('/register', [AuthController::class, 'register'])->name('register');
 
@@ -37,16 +38,16 @@ use App\Http\Controllers\SettingController;
     });
 
     Route::middleware(['role:Admin,Kasir'])->group(function () {
+        Route::resource('/distributor', DistributorController::class);
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);
-        
         Route::get('/penjualan/{penjualan}/cetak', [PenjualanController::class,'cetak'])->name('penjualan.cetak');
-        
+
         // QRIS
         Route::get('/penjualan/{id}/qris', [PenjualanController::class, 'qris'])->name('penjualan.qris');
         Route::post('/penjualan/{id}/bayar', [PenjualanController::class, 'konfirmasiBayar'])->name('penjualan.bayar');
-        
+
         // Riwayat Transaksi
         Route::get('/riwayat-transaksi', [RiwayatTransaksiController::class, 'index'])->name('riwayat.index');
         Route::get('/riwayat-transaksi/{id}', [RiwayatTransaksiController::class, 'show'])->name('riwayat.show');

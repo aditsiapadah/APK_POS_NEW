@@ -54,6 +54,7 @@
                     <th class="px-8 py-5">#</th>
                     <th class="px-8 py-5">Foto</th>
                     <th class="px-8 py-5">Nama Produk</th>
+                    <th class="px-8 py-5">Distributor</th>
                     <th class="px-8 py-5">Jenis Produk</th>
                     <th class="px-8 py-5">Harga Beli</th>
                     <th class="px-8 py-5">Harga Jual</th>
@@ -92,23 +93,28 @@
                         {{ $item->nama }}
                     </td>
 
+                    {{-- Distributor --}}
+                    <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
+                        {{ $item->distributor->nama_distributor ?? '-' }}
+                    </td>
+
                     {{-- Jenis Produk --}}
                     <td class="px-8 py-5">
 
                         <span class="
-                            px-3 py-1 rounded-full text-xs font-semibold
+                            px-8 py-5 text-gray-700 dark:text-gray-200
 
                             @if($item->jenis_produk == 'Makanan')
-                                bg-orange-100 text-orange-700
+                                
 
                             @elseif($item->jenis_produk == 'Minuman')
-                                bg-blue-100 text-blue-700
+                                
 
                             @elseif($item->jenis_produk == 'Elektronik')
-                                bg-purple-100 text-purple-700
+                                
 
                             @else
-                                bg-gray-100 text-gray-700
+                                
                             @endif">
 
                             {{ $item->jenis_produk }}

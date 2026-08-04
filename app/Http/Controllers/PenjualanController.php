@@ -70,8 +70,6 @@ class PenjualanController extends Controller
 
     public function destroy(Penjualan $penjualan)
     {
-        $this->authorize('delete', $penjualan);
-
 
         if ($penjualan->status !== 'OPEN') {
             return redirect()

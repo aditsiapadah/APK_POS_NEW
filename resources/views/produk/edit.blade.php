@@ -106,6 +106,73 @@
 
                 </div>
 
+                {{-- Distributor --}}
+
+                <div>
+
+                    <label class="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
+
+                        Distributor
+
+                    </label>
+
+
+                    <select
+                        name="distributor_id"
+
+                        class="w-full px-4 py-3 rounded-lg border
+                        dark:bg-slate-700
+                        dark:border-slate-600
+                        dark:text-white
+                        focus:ring-2 focus:ring-blue-500">
+
+
+                        <option value="">
+                        </option>
+
+
+
+                        @foreach($distributors as $distributor)
+
+
+                        <option value="{{ $distributor->id }}"
+
+                            {{ old('distributor_id', $produk->distributor_id) == $distributor->id ? 'selected' : '' }}>
+
+
+                            {{ $distributor->nama_distributor }}
+
+
+                            @if($distributor->nama_perusahaan)
+
+                                - {{ $distributor->nama_perusahaan }}
+
+                            @endif
+
+
+                        </option>
+
+
+                        @endforeach
+
+
+                    </select>
+
+
+
+                    @error('distributor_id')
+
+                    <p class="text-red-500 text-sm mt-1">
+
+                        {{ $message }}
+
+                    </p>
+
+                    @enderror
+
+
+                </div>
+
                 {{-- FOTO PRODUK --}}
                                 <div>
 

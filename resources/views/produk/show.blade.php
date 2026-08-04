@@ -27,6 +27,16 @@
 
         </div>
 
+        {{-- Distributor --}}
+        <div>
+            <span class="block text-xs font-semibold text-slate-400 uppercase">
+                Distributor
+            </span>
+            <span class="text-slate-800 dark:text-white font-medium text-base">
+                {{ $produk->distributor->nama_distributor ?? 'Tidak ada distributor' }}
+            </span>
+        </div>
+
 
 
 
@@ -39,33 +49,15 @@
 
 
             <span class="
-                inline-block mt-1
-                px-3 py-1
-                rounded-full
-                text-xs
-                font-semibold
-
+                text-slate-800 dark:text-white font-medium text-base
                 @if($produk->jenis_produk == 'Makanan')
-                    bg-orange-100 text-orange-700
-
                 @elseif($produk->jenis_produk == 'Minuman')
-                    bg-blue-100 text-blue-700
-
                 @elseif($produk->jenis_produk == 'Elektronik')
-                    bg-purple-100 text-purple-700
-
                 @elseif($produk->jenis_produk == 'Pakaian')
-                    bg-green-100 text-green-700
-
                 @else
-                    bg-gray-100 text-gray-700
-                @endif
-            ">
-
+                @endif">
                 {{ $produk->jenis_produk }}
-
             </span>
-
         </div>
 
 

@@ -88,13 +88,17 @@
                     </td>
 
                     <td class="px-8 py-5">
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold
-                            {{ ($item->metode_pembayaran ?? $item->metode) == 'CASH'
-                                ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200'
-                                : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200' }}">
-                            {{ $item->metode_pembayaran ?? $item->metode ?? '-' }}
-                        </span>
-                    </td>
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold
+                        {{
+                            ($item->metode_pembayaran ?? $item->metode) == 'CASH'
+                            ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200'
+                            : (($item->metode_pembayaran ?? $item->metode) == 'TRANSFER'
+                            ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200'
+                            : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200')
+                        }}">
+                        {{ $item->metode_pembayaran ?? $item->metode ?? '-' }}
+                    </span>
+                </td>
 
                     <td class="px-8 py-5">
                         <span class="px-3 py-1 rounded-full text-xs font-semibold

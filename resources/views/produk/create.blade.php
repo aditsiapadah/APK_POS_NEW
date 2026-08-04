@@ -16,8 +16,8 @@
     </div>
 
     <form action="{{ route('produk.store') }}"
-          method="POST"
-          enctype="multipart/form-data">
+        method="POST"
+        enctype="multipart/form-data">
 
         @csrf
 
@@ -45,9 +45,9 @@
                         class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-3 text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#0A2540]/20 focus:border-[#0A2540]">
 
                     @error('nama')
-                        <p class="text-sm text-red-500 mt-1">
-                            {{ $message }}
-                        </p>
+                    <p class="text-sm text-red-500 mt-1">
+                        {{ $message }}
+                    </p>
                     @enderror
 
                 </div>
@@ -89,15 +89,71 @@
                     </select>
 
                     @error('jenis_produk')
-                        <p class="text-sm text-red-500 mt-1">
-                            {{ $message }}
-                        </p>
+                    <p class="text-sm text-red-500 mt-1">
+                        {{ $message }}
+                    </p>
                     @enderror
 
                 </div>
 
+                {{-- Distributor --}}
+
+                <div>
+
+                    <label class="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
+
+                        Distributor
+
+                    </label>
+
+
+                    <select
+                        name="distributor_id"
+
+                        class="w-full px-4 py-3 rounded-lg border
+                        dark:bg-slate-700
+                        dark:border-slate-600
+                        dark:text-white
+                        focus:ring-2 focus:ring-blue-500">
+
+
+                        <option value=""></option>
+
+
+                        @foreach($distributors as $distributor)
+
+                        <option value="{{ $distributor->id }}"
+                            {{ old('distributor_id') == $distributor->id ? 'selected' : '' }}>
+
+                            {{ $distributor->nama_distributor }}
+
+                            @if($distributor->nama_perusahaan)
+                            - {{ $distributor->nama_perusahaan }}
+                            @endif
+
+                        </option>
+
+                        @endforeach
+
+
+                    </select>
+
+
+                    @error('distributor_id')
+
+                    <p class="text-red-500 text-sm mt-1">
+
+                        {{ $message }}
+
+                    </p>
+
+                    @enderror
+
+
+                </div>
+
                 {{-- FOTO PRODUK --}}
-                                <div>
+                <div>
 
                     <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                         Foto Produk
@@ -137,9 +193,9 @@
                         </p>
 
                         @error('foto')
-                            <p class="text-sm text-red-500 mt-2">
-                                {{ $message }}
-                            </p>
+                        <p class="text-sm text-red-500 mt-2">
+                            {{ $message }}
+                        </p>
                         @enderror
 
                     </div>
@@ -171,9 +227,9 @@
                         class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-3 text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#0A2540]/20 focus:border-[#0A2540]">
 
                     @error('harga_beli')
-                        <p class="text-sm text-red-500 mt-1">
-                            {{ $message }}
-                        </p>
+                    <p class="text-sm text-red-500 mt-1">
+                        {{ $message }}
+                    </p>
                     @enderror
 
                 </div>
@@ -195,9 +251,9 @@
                         class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-3 text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#0A2540]/20 focus:border-[#0A2540]">
 
                     @error('harga_jual')
-                        <p class="text-sm text-red-500 mt-1">
-                            {{ $message }}
-                        </p>
+                    <p class="text-sm text-red-500 mt-1">
+                        {{ $message }}
+                    </p>
                     @enderror
 
                 </div>
@@ -219,13 +275,13 @@
                         class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-3 text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#0A2540]/20 focus:border-[#0A2540]">
 
                     @error('stok')
-                        <p class="text-sm text-red-500 mt-1">
-                            {{ $message }}
-                        </p>
+                    <p class="text-sm text-red-500 mt-1">
+                        {{ $message }}
+                    </p>
                     @enderror
 
                 </div>
-                        </div>
+            </div>
         </div>
 
         {{-- Tombol --}}
@@ -252,34 +308,34 @@
 
 {{-- Preview Foto --}}
 <script>
-const foto = document.getElementById('foto');
-const preview = document.getElementById('preview-image');
+    const foto = document.getElementById('foto');
+    const preview = document.getElementById('preview-image');
 
-foto.addEventListener('change', function (e) {
+    foto.addEventListener('change', function(e) {
 
-    const file = e.target.files[0];
+        const file = e.target.files[0];
 
-    if (!file) {
-        preview.src = "{{ asset('images/no-image.png') }}";
-        return;
-    }
+        if (!file) {
+            preview.src = "{{ asset('images/no-image.png') }}";
+            return;
+        }
 
-    if (!file.type.startsWith('image/')) {
-        alert('File yang dipilih harus berupa gambar.');
-        foto.value = '';
-        preview.src = "{{ asset('images/no-image.png') }}";
-        return;
-    }
+        if (!file.type.startsWith('image/')) {
+            alert('File yang dipilih harus berupa gambar.');
+            foto.value = '';
+            preview.src = "{{ asset('images/no-image.png') }}";
+            return;
+        }
 
-    const reader = new FileReader();
+        const reader = new FileReader();
 
-    reader.onload = function (event) {
-        preview.src = event.target.result;
-    };
+        reader.onload = function(event) {
+            preview.src = event.target.result;
+        };
 
-    reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
 
-});
+    });
 </script>
 
 @endsection
