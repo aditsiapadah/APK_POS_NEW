@@ -65,12 +65,6 @@ class SettingController extends Controller
 
             'logo'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
-
-            'bahasa'     => 'required|in:id,en',
-            'mata_uang'  => 'required|in:IDR,USD',
-            'per_page'   => 'required|integer|min:5|max:100',
-
-
             'nama_aplikasi' => 'nullable|string|max:100',
             'versi_aplikasi' => 'nullable|string|max:50',
             'deskripsi_aplikasi' => 'nullable|string',
@@ -91,10 +85,6 @@ class SettingController extends Controller
             'alamat',
             'telepon',
             'email',
-
-            'bahasa',
-            'mata_uang',
-            'per_page',
 
             'nama_aplikasi',
             'versi_aplikasi',

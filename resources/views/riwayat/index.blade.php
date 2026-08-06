@@ -99,7 +99,13 @@
                     </td>
 
                     <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
-                        {{ $item->created_at ? $item->created_at->format('Y-m-d H:i:s') : ($item->tanggal_transaksi ?? '-') }}
+                        {{
+                            $item->created_at
+                                ? $item->created_at->format('d-m-Y H:i')
+                                : ($item->tanggal_transaksi
+                                    ? \Carbon\Carbon::parse($item->tanggal_transaksi)->format('d-m-Y H:i')
+                                    : '-')
+                        }}
                     </td>
 
                     <td class="px-8 py-5 font-semibold text-gray-900 dark:text-white">
@@ -112,9 +118,13 @@
 
                     <td class="px-8 py-5">
                         <span class="px-3 py-1 rounded-full text-xs font-semibold
-                            {{ ($item->metode_pembayaran ?? $item->metode) == 'CASH'
-                                ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200'
-                                : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200' }}">
+                            {{
+                            ($item->metode_pembayaran ?? $item->metode) == 'CASH'
+                            ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200'
+                            : (($item->metode_pembayaran ?? $item->metode) == 'TRANSFER'
+                            ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200'
+                            : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200')
+                            }}">
                             {{ $item->metode_pembayaran ?? $item->metode ?? '-' }}
                         </span>
                     </td>

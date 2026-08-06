@@ -22,20 +22,26 @@
         </a>
     </div>
 
+
     {{-- Search --}}
     <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-6 mb-8">
+
         <form method="GET" action="{{ route('penjualan.index') }}">
 
             <div class="relative w-full md:w-80">
 
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-gray-400 dark:text-gray-500"></i>
+                <i class="fa-solid fa-magnifying-glass
+                    absolute left-4 top-4
+                    text-gray-400 dark:text-gray-500">
+                </i>
 
                 <input
                     type="text"
                     name="search"
                     value="{{ request('search') }}"
                     placeholder="Cari transaksi / kasir..."
-                    class="w-full border border-gray-300 dark:border-slate-600
+                    class="w-full
+                    border border-gray-300 dark:border-slate-600
                     bg-white dark:bg-slate-700
                     text-gray-800 dark:text-white
                     placeholder-gray-400 dark:placeholder-gray-400
@@ -46,14 +52,18 @@
             </div>
 
         </form>
+
     </div>
 
+
     {{-- Table --}}
-    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg overflow-hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg overflow-x-auto">
 
         <table class="w-full">
 
+            {{-- Header Table --}}
             <thead class="bg-gray-50 dark:bg-slate-700">
+
                 <tr class="text-left text-gray-500 dark:text-gray-200">
                     <th class="px-8 py-5">#</th>
                     <th class="px-8 py-5">Tanggal Transaksi</th>
@@ -65,179 +75,217 @@
                 </tr>
             </thead>
 
+            {{-- Body Table --}}
             <tbody>
-
                 @forelse($penjualan as $index => $item)
+                    <tr class="border-t
+                        border-gray-200 dark:border-slate-700
+                        hover:bg-gray-50 dark:hover:bg-slate-700
+                        transition">
 
-                <tr class="border-t border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 transition">
+                        {{-- Nomor --}}
+                        <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
+                            {{ $penjualan->firstItem() + $index }}
+                        </td>
 
-                    <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
-                        {{ $penjualan->firstItem() + $index }}
-                    </td>
+                        {{-- Tanggal Transaksi --}}
+                        <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
+                            {{
+                                \Carbon\Carbon::parse(
+                                    $item->tanggal_transaksi ?? $item->created_at
+                                )->format('d-m-Y H:i')
+                            }}
+                        </td>
 
-                    <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
-                        {{ $item->tanggal_transaksi ?? $item->created_at }}
-                    </td>
+                        {{-- Kasir --}}
+                        <td class="px-8 py-5 font-semibold text-gray-900 dark:text-white">
+                            {{ $item->user->name ?? $item->user->nama ?? '-' }}
+                        </td>
 
-                    <td class="px-8 py-5 font-semibold text-gray-900 dark:text-white">
-                        {{ $item->user->name ?? $item->user->nama ?? '-' }}
-                    </td>
+                        {{-- Total Pembayaran --}}
+                        <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
+                            Rp {{ number_format(
+                                $item->total_pembayaran ?? $item->total ?? 0,
+                                0,
+                                ',',
+                                '.'
+                            ) }}
+                        </td>
 
-                    <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
-                        Rp {{ number_format($item->total_pembayaran ?? $item->total ?? 0, 0, ',', '.') }}
-                    </td>
+                        {{-- Metode Pembayaran --}}
+                        <td class="px-8 py-5">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                {{
+                                    ($item->metode_pembayaran ?? $item->metode) == 'CASH'
+                                    ? 'bg-green-100 text-green-700
+                                    dark:bg-green-900 dark:text-green-200'
+                                    : (
+                                        ($item->metode_pembayaran ?? $item->metode) == 'TRANSFER'
+                                        ? 'bg-yellow-100 text-yellow-700
+                                        dark:bg-yellow-900 dark:text-yellow-200'
+                                        : 'bg-blue-100 text-blue-700
+                                        dark:bg-blue-900 dark:text-blue-200'
+                                    )
+                                }}">
+                                {{ $item->metode_pembayaran ?? $item->metode ?? '-' }}
+                            </span>
+                        </td>
 
-                    <td class="px-8 py-5">
-                    <span class="px-3 py-1 rounded-full text-xs font-semibold
-                        {{
-                            ($item->metode_pembayaran ?? $item->metode) == 'CASH'
-                            ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200'
-                            : (($item->metode_pembayaran ?? $item->metode) == 'TRANSFER'
-                            ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200'
-                            : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200')
-                        }}">
-                        {{ $item->metode_pembayaran ?? $item->metode ?? '-' }}
-                    </span>
-                </td>
+                        {{-- Status --}}
+                        <td class="px-8 py-5">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                {{
+                                    ($item->status ?? '') == 'COMPLETED'
+                                    ? 'bg-emerald-100 text-emerald-700
+                                    dark:bg-emerald-900 dark:text-emerald-200'
+                                    : 'bg-amber-100 text-amber-700
+                                    dark:bg-amber-900 dark:text-amber-200'
+                                }}">
+                                {{ $item->status ?? 'OPEN' }}
+                            </span>
+                        </td>
 
-                    <td class="px-8 py-5">
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold
-                            {{ ($item->status ?? '') == 'COMPLETED'
-                                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-200'
-                                : 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-200' }}">
-                            {{ $item->status ?? 'OPEN' }}
-                        </span>
-                    </td>
+                        {{-- Aksi --}}
+                        <td class="px-8 py-5">
+                            <div class="flex justify-center gap-2">
+                                {{-- ========================== --}}
+                                {{-- STATUS COMPLETED --}}
+                                {{-- ========================== --}}
+                                @if($item->status === 'COMPLETED')
+                                    {{-- Detail --}}
+                                    <a href="{{ route('penjualan.show', $item->id) }}"
+                                        class="w-10 h-10 rounded-lg
+                                        bg-blue-500 hover:bg-blue-600
+                                        flex items-center justify-center
+                                        text-white transition"
+                                        title="Detail">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
 
-                    <td class="px-8 py-5">
-
-                        <div class="flex justify-center gap-2">
-
-    {{-- Detail --}}
-    <a href="{{ route('penjualan.show', $item->id) }}"
-        class="w-10 h-10 rounded-lg bg-blue-500 hover:bg-blue-600
-        flex items-center justify-center text-white transition"
-        title="Detail">
-        <i class="fa-solid fa-eye"></i>
-    </a>
-
-
-    {{-- Cetak --}}
-    <a href="{{ route('penjualan.cetak', $item->id) }}"
-        target="_blank"
-        class="w-10 h-10 rounded-lg bg-green-500 hover:bg-green-600
-        flex items-center justify-center text-white transition"
-        title="Cetak">
-
-        <i class="fa-solid fa-print"></i>
-
-    </a>
-
-
-    @if(auth()->user()->role->name == 'Admin')
-
-    {{-- Edit --}}
-    @if($item->status === 'COMPLETED')
-        <button
-            type="button"
-            onclick="transaksiSelesai()"
-            class="w-10 h-10 rounded-lg bg-gray-400 cursor-not-allowed
-            flex items-center justify-center text-white transition"
-            title="Transaksi sudah selesai">
-            <i class="fa-solid fa-pen"></i>
-        </button>
-    @else
-        <a href="{{ route('penjualan.edit', $item->id) }}"
-            class="w-10 h-10 rounded-lg bg-yellow-400 hover:bg-yellow-500
-            flex items-center justify-center text-white transition"
-            title="Edit">
-            <i class="fa-solid fa-pen"></i>
-        </a>
-    @endif
-
-
-            {{-- Delete --}}
-            <form action="{{ route('penjualan.destroy', $item->id) }}"
-            method="POST"
-            class="form-hapus-penjualan">
-                @csrf
-                @method('DELETE')
-
-                <button type="submit"
-                    class="w-10 h-10 rounded-lg bg-red-500 hover:bg-red-600
-                        flex items-center justify-center text-white transition"
-                    title="Hapus">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
-            </form>
-
-            @endif
-
-        </div>
-
-                    </td>
-
-                </tr>
-
+                                    {{-- Cetak Struk --}}
+                                    <a href="{{ route('penjualan.cetak', $item->id) }}"
+                                        target="_blank"
+                                        class="w-10 h-10 rounded-lg
+                                        bg-green-500 hover:bg-green-600
+                                        flex items-center justify-center
+                                        text-white transition"
+                                        title="Cetak Struk">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                @endif
+                                {{-- ========================== --}}
+                                {{-- KHUSUS ADMIN --}}
+                                {{-- ========================== --}}
+                                @if(optional(auth()->user()->role)->name === 'Admin')
+                                    {{-- ========================== --}}
+                                    {{-- EDIT --}}
+                                    {{-- ========================== --}}
+                                    @if($item->status === 'COMPLETED')
+                                        {{-- Edit Disabled --}}
+                                        <button
+                                            type="button"
+                                            onclick="transaksiSelesai()"
+                                            class="w-10 h-10 rounded-lg
+                                            bg-gray-400
+                                            cursor-not-allowed
+                                            flex items-center justify-center
+                                            text-white transition"
+                                            title="Transaksi sudah selesai">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                    @else
+                                        {{-- Edit OPEN --}}
+                                        <a href="{{ route('penjualan.edit', $item->id) }}"
+                                            class="w-10 h-10 rounded-lg
+                                            bg-yellow-400 hover:bg-yellow-500
+                                            flex items-center justify-center
+                                            text-white transition"
+                                            title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                    @endif
+                                    {{-- ========================== --}}
+                                    {{-- HAPUS HANYA STATUS OPEN --}}
+                                    {{-- ========================== --}}
+                                    @if($item->status === 'OPEN')
+                                        <form
+                                            action="{{ route('penjualan.destroy', $item->id) }}"
+                                            method="POST"
+                                            class="form-hapus-penjualan">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                type="submit"
+                                                class="w-10 h-10 rounded-lg
+                                                bg-red-500 hover:bg-red-600
+                                                flex items-center justify-center
+                                                text-white transition"
+                                                title="Hapus">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
                 @empty
 
-                <tr>
-
-                    <td colspan="7"
-                        class="text-center py-10 text-gray-500 dark:text-gray-300">
-
-                        Tidak ada data penjualan
-
-                    </td>
-
-                </tr>
-
+                    {{-- Tidak Ada Data --}}
+                    <tr>
+                        <td
+                            colspan="7"
+                            class="text-center py-10
+                            text-gray-500 dark:text-gray-300">
+                            Tidak ada data penjualan
+                        </td>
+                    </tr>
                 @endforelse
-
             </tbody>
-
         </table>
-
     </div>
 
     {{-- Pagination --}}
     <div class="mt-6 dark:text-white">
         {{ $penjualan->links() }}
     </div>
-
 </div>
 
+{{-- SweetAlert --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+{{-- ============================== --}}
+{{-- SUCCESS ALERT --}}
+{{-- ============================== --}}
 @if(session('success'))
 <script>
-Swal.fire({
-    icon: 'success',
-    title: 'Berhasil',
-    text: "{{ session('success') }}",
-    confirmButtonColor: '#0A2540'
-});
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: @json(session('success')),
+        confirmButtonColor: '#0A2540'
+    });
 </script>
 @endif
-
+{{-- ============================== --}}
+{{-- ERROR ALERT --}}
+{{-- ============================== --}}
 @if(session('error'))
 <script>
-Swal.fire({
-    icon: 'error',
-    title: 'Tidak Dapat Dihapus',
-    text: "{{ session('error') }}",
-    confirmButtonColor: '#d33'
-});
+    Swal.fire({
+        icon: 'error',
+        title: 'Tidak Dapat Dihapus',
+        text: @json(session('error')),
+        confirmButtonColor: '#d33'
+    });
 </script>
 @endif
-
+{{-- ============================== --}}
+{{-- KONFIRMASI HAPUS --}}
+{{-- ============================== --}}
 <script>
 document.querySelectorAll('.form-hapus-penjualan').forEach(function(form) {
-
     form.addEventListener('submit', function(e) {
-
         e.preventDefault();
-
         Swal.fire({
             title: 'Hapus Transaksi?',
             text: 'Apakah Anda yakin ingin menghapus transaksi penjualan ini?',
@@ -248,17 +296,15 @@ document.querySelectorAll('.form-hapus-penjualan').forEach(function(form) {
             confirmButtonText: 'Ya, Hapus',
             cancelButtonText: 'Batal'
         }).then((result) => {
-
             if (result.isConfirmed) {
                 form.submit();
             }
-
         });
-
     });
-
 });
-
+{{-- ============================== --}}
+{{-- TRANSAKSI COMPLETED --}}
+{{-- ============================== --}}
 function transaksiSelesai() {
     Swal.fire({
         icon: 'warning',

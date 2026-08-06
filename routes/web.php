@@ -12,7 +12,7 @@ use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\SettingController;
 
     Route::middleware('guest')->group(function () {
-        Route::get('/', [AuthController::class, 'index'])->name('login');
+        Route::get('/login', [AuthController::class, 'index'])->name('login');
         Route::post('/login', [AuthController::class, 'auth'])->name('auth');
         Route::post('/register', [AuthController::class, 'register'])->name('register');
 
