@@ -14,10 +14,183 @@ class ProdukFactory extends Factory
 
     public function definition(): array
     {
-        $hargaBeli = $this->faker->numberBetween(10000, 500000);
+        $produkIndonesia = [
 
-        // Ambil ID role Admin berdasarkan nama
+            // ================= MAKANAN =================
+            [
+                'nama' => 'Indomie Goreng',
+                'jenis_produk' => 'Makanan',
+                'harga_beli' => 2500,
+                'harga_jual' => 3500,
+            ],
+            [
+                'nama' => 'Indomie Soto',
+                'jenis_produk' => 'Makanan',
+                'harga_beli' => 2500,
+                'harga_jual' => 3500,
+            ],
+            [
+                'nama' => 'Beras Premium 5kg',
+                'jenis_produk' => 'Makanan',
+                'harga_beli' => 65000,
+                'harga_jual' => 75000,
+            ],
+            [
+                'nama' => 'Minyak Goreng Bimoli 1 Liter',
+                'jenis_produk' => 'Makanan',
+                'harga_beli' => 16000,
+                'harga_jual' => 20000,
+            ],
+            [
+                'nama' => 'Gula Pasir Gulaku 1kg',
+                'jenis_produk' => 'Makanan',
+                'harga_beli' => 14000,
+                'harga_jual' => 17000,
+            ],
+            [
+                'nama' => 'Sari Roti Coklat',
+                'jenis_produk' => 'Makanan',
+                'harga_beli' => 6000,
+                'harga_jual' => 9000,
+            ],
+            [
+                'nama' => 'Chitato Sapi Panggang',
+                'jenis_produk' => 'Makanan',
+                'harga_beli' => 8000,
+                'harga_jual' => 12000,
+            ],
+            [
+                'nama' => 'Roma Kelapa',
+                'jenis_produk' => 'Makanan',
+                'harga_beli' => 5000,
+                'harga_jual' => 7000,
+            ],
+
+
+            // ================= MINUMAN =================
+            [
+                'nama' => 'Aqua Botol 600ml',
+                'jenis_produk' => 'Minuman',
+                'harga_beli' => 2500,
+                'harga_jual' => 4000,
+            ],
+            [
+                'nama' => 'Teh Botol Sosro',
+                'jenis_produk' => 'Minuman',
+                'harga_beli' => 3000,
+                'harga_jual' => 5000,
+            ],
+            [
+                'nama' => 'Teh Pucuk Harum',
+                'jenis_produk' => 'Minuman',
+                'harga_beli' => 3000,
+                'harga_jual' => 5000,
+            ],
+            [
+                'nama' => 'Pocari Sweat 500ml',
+                'jenis_produk' => 'Minuman',
+                'harga_beli' => 5000,
+                'harga_jual' => 8000,
+            ],
+            [
+                'nama' => 'Kopi Kapal Api',
+                'jenis_produk' => 'Minuman',
+                'harga_beli' => 1500,
+                'harga_jual' => 3000,
+            ],
+            [
+                'nama' => 'Susu Ultra Milk',
+                'jenis_produk' => 'Minuman',
+                'harga_beli' => 5000,
+                'harga_jual' => 8000,
+            ],
+
+
+            // ================= ELEKTRONIK =================
+            [
+                'nama' => 'Lampu LED Philips 12 Watt',
+                'jenis_produk' => 'Elektronik',
+                'harga_beli' => 18000,
+                'harga_jual' => 25000,
+            ],
+            [
+                'nama' => 'Kabel Data USB Type C',
+                'jenis_produk' => 'Elektronik',
+                'harga_beli' => 15000,
+                'harga_jual' => 25000,
+            ],
+            [
+                'nama' => 'Charger Xiaomi 18W',
+                'jenis_produk' => 'Elektronik',
+                'harga_beli' => 45000,
+                'harga_jual' => 65000,
+            ],
+            [
+                'nama' => 'Mouse Wireless Logitech',
+                'jenis_produk' => 'Elektronik',
+                'harga_beli' => 60000,
+                'harga_jual' => 85000,
+            ],
+            [
+                'nama' => 'Headset Bluetooth Robot',
+                'jenis_produk' => 'Elektronik',
+                'harga_beli' => 75000,
+                'harga_jual' => 100000,
+            ],
+            [
+                'nama' => 'Powerbank 10000mAh',
+                'jenis_produk' => 'Elektronik',
+                'harga_beli' => 90000,
+                'harga_jual' => 120000,
+            ],
+            [
+                'nama' => 'Flashdisk Sandisk 32GB',
+                'jenis_produk' => 'Elektronik',
+                'harga_beli' => 50000,
+                'harga_jual' => 70000,
+            ],
+
+
+            // ================= LAINNYA =================
+            [
+                'nama' => 'Pulpen Standard AE7',
+                'jenis_produk' => 'Lainnya',
+                'harga_beli' => 2000,
+                'harga_jual' => 3000,
+            ],
+            [
+                'nama' => 'Buku Tulis Sinar Dunia',
+                'jenis_produk' => 'Lainnya',
+                'harga_beli' => 4000,
+                'harga_jual' => 6000,
+            ],
+            [
+                'nama' => 'Sabun Lifebuoy',
+                'jenis_produk' => 'Lainnya',
+                'harga_beli' => 3000,
+                'harga_jual' => 5000,
+            ],
+            [
+                'nama' => 'Pasta Gigi Pepsodent',
+                'jenis_produk' => 'Lainnya',
+                'harga_beli' => 5000,
+                'harga_jual' => 8000,
+            ],
+            [
+                'nama' => 'Tissue Paseo',
+                'jenis_produk' => 'Lainnya',
+                'harga_beli' => 7000,
+                'harga_jual' => 10000,
+            ],
+        ];
+
+
+        $produk = fake()->randomElement($produkIndonesia);
+
+
+        // Ambil user Admin
         $adminRoleId = Role::where('name', 'Admin')->value('id');
+
 
         return [
             'user_id' => User::where('role_id', $adminRoleId)
@@ -26,19 +199,17 @@ class ProdukFactory extends Factory
 
             'distributor_id' => Distributor::inRandomOrder()->value('id'),
 
-            'foto' => 'produk/' . $this->faker->uuid . '.jpg',
-            'nama' => $this->faker->words(3, true),
+            'foto' => 'produk/' . fake()->uuid . '.jpg',
 
-            'jenis_produk' => $this->faker->randomElement([
-                'Makanan',
-                'Minuman',
-                'Elektronik',
-                'Lainnya',
-            ]),
+            'nama' => $produk['nama'],
 
-            'harga_beli' => $hargaBeli,
-            'harga_jual' => $hargaBeli + $this->faker->numberBetween(5000, 100000),
-            'stok' => $this->faker->numberBetween(1, 500),
+            'jenis_produk' => $produk['jenis_produk'],
+
+            'harga_beli' => $produk['harga_beli'],
+
+            'harga_jual' => $produk['harga_jual'],
+
+            'stok' => fake()->numberBetween(5, 200),
         ];
     }
 }
