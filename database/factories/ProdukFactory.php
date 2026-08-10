@@ -6,6 +6,7 @@ use App\Models\Produk;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Distributor;
+use App\Models\JenisProduk;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProdukFactory extends Factory
@@ -149,39 +150,6 @@ class ProdukFactory extends Factory
                 'harga_beli' => 50000,
                 'harga_jual' => 70000,
             ],
-
-
-            // ================= LAINNYA =================
-            [
-                'nama' => 'Pulpen Standard AE7',
-                'jenis_produk' => 'Lainnya',
-                'harga_beli' => 2000,
-                'harga_jual' => 3000,
-            ],
-            [
-                'nama' => 'Buku Tulis Sinar Dunia',
-                'jenis_produk' => 'Lainnya',
-                'harga_beli' => 4000,
-                'harga_jual' => 6000,
-            ],
-            [
-                'nama' => 'Sabun Lifebuoy',
-                'jenis_produk' => 'Lainnya',
-                'harga_beli' => 3000,
-                'harga_jual' => 5000,
-            ],
-            [
-                'nama' => 'Pasta Gigi Pepsodent',
-                'jenis_produk' => 'Lainnya',
-                'harga_beli' => 5000,
-                'harga_jual' => 8000,
-            ],
-            [
-                'nama' => 'Tissue Paseo',
-                'jenis_produk' => 'Lainnya',
-                'harga_beli' => 7000,
-                'harga_jual' => 10000,
-            ],
         ];
 
 
@@ -203,7 +171,7 @@ class ProdukFactory extends Factory
 
             'nama' => $produk['nama'],
 
-            'jenis_produk' => $produk['jenis_produk'],
+            'jenis_produk_id' => JenisProduk::where('nama', $produk['jenis_produk'])->value('id'),
 
             'harga_beli' => $produk['harga_beli'],
 

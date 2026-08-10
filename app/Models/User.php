@@ -20,9 +20,15 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'foto',
         'password',
-        'role_id'
+        'role_id',
     ];
+
+    public function getInitialAttribute(): string
+    {
+        return mb_strtoupper(mb_substr($this->name, 0, 1));
+    }
 
     /**
      * The attributes that should be hidden for serialization.

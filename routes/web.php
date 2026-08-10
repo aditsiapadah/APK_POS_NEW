@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemPenjualanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\DistributorController;
+use App\Http\Controllers\JenisProdukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RiwayatTransaksiController;
@@ -39,6 +40,7 @@ use App\Http\Controllers\SettingController;
 
     Route::middleware(['role:Admin,Kasir'])->group(function () {
         Route::resource('/distributor', DistributorController::class);
+        Route::resource('/jenis-produk', JenisProdukController::class)->except(['show']);
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);

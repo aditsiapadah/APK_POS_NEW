@@ -7,13 +7,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    /**
-     * Cek apakah user adalah Admin.
-     */
-        private function checkAdmin()
+    private function checkAdmin()
     {
         if (!Auth::check() || Auth::user()->role_id != 1) {
             return redirect()
@@ -62,17 +60,25 @@ class UserController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email',
+            'name'     => 'required|max:255',
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'role_id' => 'required'
+            'role_id'  => 'required',
+            'foto'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        $foto = null;
+
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto')->store('users', 'public');
+        }
 
         User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
             'role_id'  => $request->role_id,
+            'foto'     => $foto,
         ]);
 
         return redirect()
@@ -100,8 +106,17 @@ class UserController extends Controller
         $request->validate([
             'name'    => 'required|max:255',
             'email'   => 'required|email|unique:users,email,' . $user->id,
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'foto'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        if ($request->hasFile('foto')) {
+            if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+                Storage::disk('public')->delete($user->foto);
+            }
+
+            $user->foto = $request->file('foto')->store('users', 'public');
+        }
 
         $user->name = $request->name;
         $user->email = $request->email;
@@ -118,31 +133,32 @@ class UserController extends Controller
             ->with('success', 'Data user berhasil diperbarui.');
     }
 
-        public function destroy(User $user)
+    public function destroy(User $user)
     {
         if ($redirect = $this->checkAdmin()) {
             return $redirect;
         }
 
-        // Tidak boleh menghapus akun sendiri
         if (Auth::id() == $user->id) {
             return redirect()
                 ->route('admin.users')
                 ->with('error', 'Anda tidak dapat menghapus akun yang sedang digunakan.');
         }
 
-        // Cek apakah user masih memiliki produk
         if ($user->produk()->exists()) {
             return redirect()
                 ->route('admin.users')
                 ->with('error', 'User tidak dapat dihapus karena masih memiliki data produk.');
         }
 
-        // Cek apakah user masih memiliki transaksi
         if ($user->penjualan()->exists()) {
             return redirect()
                 ->route('admin.users')
                 ->with('error', 'User tidak dapat dihapus karena masih memiliki data penjualan.');
+        }
+
+        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+            Storage::disk('public')->delete($user->foto);
         }
 
         $user->delete();

@@ -56,6 +56,7 @@
             <thead class="bg-gray-50 dark:bg-slate-700">
                 <tr class="text-left text-gray-500 dark:text-gray-200">
                     <th class="px-8 py-5">#</th>
+                    <th class="px-8 py-5">Foto</th>
                     <th class="px-8 py-5">Nama</th>
                     <th class="px-8 py-5">Email</th>
                     <th class="px-8 py-5">Role</th>
@@ -71,6 +72,10 @@
 
                     <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
                         {{ $users->firstItem() + $index }}
+                    </td>
+
+                    <td class="px-8 py-5">
+                        <x-user-avatar :user="$user" size="lg" />
                     </td>
 
                     <td class="px-8 py-5 font-semibold text-gray-900 dark:text-white">
@@ -97,7 +102,6 @@
 
                         <div class="flex justify-center gap-2">
 
-                            {{-- Edit --}}
                             <a href="{{ route('admin.users.edit', $user->id) }}"
                                 class="w-10 h-10 rounded-lg
                                     bg-yellow-400 hover:bg-yellow-500
@@ -106,7 +110,6 @@
                                 <i class="fa-solid fa-pen"></i>
                             </a>
 
-                            {{-- Hapus hanya jika bukan user yang sedang login --}}
                             @if($user->id != auth()->id())
 
                                 <form action="{{ route('admin.users.destroy', $user->id) }}"
@@ -137,7 +140,7 @@
 
                 <tr>
 
-                    <td colspan="5"
+                    <td colspan="6"
                         class="text-center py-10 text-gray-500 dark:text-gray-300">
 
                         Tidak ada data user

@@ -60,35 +60,22 @@
                     </label>
 
                     <select
-                        name="jenis_produk"
+                        name="jenis_produk_id"
                         required
                         class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-3 text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-[#0A2540]/20 focus:border-[#0A2540]">
 
                         <option value=""></option>
 
-                        <option value="Makanan"
-                            {{ old('jenis_produk') == 'Makanan' ? 'selected' : '' }}>
-                            🍔 Makanan
+                        @foreach($jenisProduks as $jenis)
+                        <option value="{{ $jenis->id }}"
+                            {{ old('jenis_produk_id') == $jenis->id ? 'selected' : '' }}>
+                            {{ $jenis->nama }}
                         </option>
-
-                        <option value="Minuman"
-                            {{ old('jenis_produk') == 'Minuman' ? 'selected' : '' }}>
-                            🥤 Minuman
-                        </option>
-
-                        <option value="Elektronik"
-                            {{ old('jenis_produk') == 'Elektronik' ? 'selected' : '' }}>
-                            💻 Elektronik
-                        </option>
-
-                        <option value="Lainnya"
-                            {{ old('jenis_produk') == 'Lainnya' ? 'selected' : '' }}>
-                            📦 Lainnya
-                        </option>
+                        @endforeach
 
                     </select>
 
-                    @error('jenis_produk')
+                    @error('jenis_produk_id')
                     <p class="text-sm text-red-500 mt-1">
                         {{ $message }}
                     </p>

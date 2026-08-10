@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ItemPenjualan;
 use App\Models\Produk;
 use App\Models\Distributor;
+use App\Models\JenisProduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -15,14 +16,16 @@ class ProdukController extends Controller
     {
         $search = $request->search;
 
-        $produk = Produk::with('distributor')
+        $produk = Produk::with(['distributor', 'jenisProduk'])
             ->when($search, function ($query) use ($search) {
-        $query->where('nama', 'like', '%' . $search . '%')
-            ->orWhere('jenis_produk', 'like', '%' . $search . '%');
-        })
-        ->latest()
-        ->paginate(10)
-        ->withQueryString();
+                $query->where('nama', 'like', '%' . $search . '%')
+                    ->orWhereHas('jenisProduk', function ($q) use ($search) {
+                        $q->where('nama', 'like', '%' . $search . '%');
+                    });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('produk.index', compact('produk'));
     }
@@ -30,19 +33,21 @@ class ProdukController extends Controller
     public function create()
     {
         $distributors = Distributor::latest()->get();
-        return view('produk.create', compact('distributors'));
+        $jenisProduks = JenisProduk::latest()->get();
+
+        return view('produk.create', compact('distributors', 'jenisProduks'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'distributor_id' => 'nullable|exists:distributors,id',
-            'nama'          => 'required|string|max:255',
-            'jenis_produk'  => 'required|string|max:255',
-            'foto'          => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'harga_beli'    => 'required|numeric|min:0',
-            'harga_jual'    => 'required|numeric|min:0',
-            'stok'          => 'required|integer|min:0',
+            'distributor_id'   => 'nullable|exists:distributors,id',
+            'jenis_produk_id'  => 'required|exists:jenis_produk,id',
+            'nama'             => 'required|string|max:255',
+            'foto'             => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'harga_beli'       => 'required|numeric|min:0',
+            'harga_jual'       => 'required|numeric|min:0',
+            'stok'             => 'required|integer|min:0',
         ]);
 
         $foto = null;
@@ -52,14 +57,14 @@ class ProdukController extends Controller
         }
 
         Produk::create([
-            'user_id'       => Auth::id(),
-            'distributor_id' => $request->distributor_id,
-            'nama'          => $request->nama,
-            'jenis_produk'  => $request->jenis_produk,
-            'foto'          => $foto,
-            'harga_beli'    => $request->harga_beli,
-            'harga_jual'    => $request->harga_jual,
-            'stok'          => $request->stok,
+            'user_id'          => Auth::id(),
+            'distributor_id'   => $request->distributor_id,
+            'jenis_produk_id'  => $request->jenis_produk_id,
+            'nama'             => $request->nama,
+            'foto'             => $foto,
+            'harga_beli'       => $request->harga_beli,
+            'harga_jual'       => $request->harga_jual,
+            'stok'             => $request->stok,
         ]);
 
         return redirect()
@@ -69,26 +74,29 @@ class ProdukController extends Controller
 
     public function show(Produk $produk)
     {
-        $produk->load('distributor');
+        $produk->load(['distributor', 'jenisProduk']);
+
         return view('produk.show', compact('produk'));
     }
 
     public function edit(Produk $produk)
     {
         $distributors = Distributor::latest()->get();
-        return view('produk.edit', compact('produk', 'distributors'));
+        $jenisProduks = JenisProduk::latest()->get();
+
+        return view('produk.edit', compact('produk', 'distributors', 'jenisProduks'));
     }
 
     public function update(Request $request, Produk $produk)
     {
         $request->validate([
-            'distributor_id' => 'nullable|exists:distributors,id',
-            'nama'          => 'required|string|max:255',
-            'jenis_produk'  => 'required|string|max:255',
-            'foto'          => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'harga_beli'    => 'required|numeric|min:0',
-            'harga_jual'    => 'required|numeric|min:0',
-            'stok'          => 'required|integer|min:0',
+            'distributor_id'   => 'nullable|exists:distributors,id',
+            'jenis_produk_id'  => 'required|exists:jenis_produk,id',
+            'nama'             => 'required|string|max:255',
+            'foto'             => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'harga_beli'       => 'required|numeric|min:0',
+            'harga_jual'       => 'required|numeric|min:0',
+            'stok'             => 'required|integer|min:0',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -102,8 +110,8 @@ class ProdukController extends Controller
 
         $produk->user_id = $produk->user_id ?? Auth::id();
         $produk->distributor_id = $request->distributor_id;
+        $produk->jenis_produk_id = $request->jenis_produk_id;
         $produk->nama = $request->nama;
-        $produk->jenis_produk = $request->jenis_produk;
         $produk->harga_beli = $request->harga_beli;
         $produk->harga_jual = $request->harga_jual;
         $produk->stok = $request->stok;

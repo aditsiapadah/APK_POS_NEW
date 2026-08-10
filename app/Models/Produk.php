@@ -14,8 +14,8 @@ class Produk extends Model
     protected $fillable = [
         'user_id',
         'distributor_id',
+        'jenis_produk_id',
         'nama',
-        'jenis_produk',
         'foto',
         'harga_beli',
         'harga_jual',
@@ -30,5 +30,10 @@ class Produk extends Model
     public function distributor()
     {
         return $this->belongsTo(Distributor::class);
+    }
+
+    public function jenisProduk()
+    {
+        return $this->belongsTo(JenisProduk::class);
     }
 }

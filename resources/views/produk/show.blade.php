@@ -48,15 +48,8 @@
             </span>
 
 
-            <span class="
-                text-slate-800 dark:text-white font-medium text-base
-                @if($produk->jenis_produk == 'Makanan')
-                @elseif($produk->jenis_produk == 'Minuman')
-                @elseif($produk->jenis_produk == 'Elektronik')
-                @elseif($produk->jenis_produk == 'Pakaian')
-                @else
-                @endif">
-                {{ $produk->jenis_produk }}
+            <span class="text-slate-800 dark:text-white font-medium text-base">
+                {{ $produk->jenisProduk->nama ?? '-' }}
             </span>
         </div>
 

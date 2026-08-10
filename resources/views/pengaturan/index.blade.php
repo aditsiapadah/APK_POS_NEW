@@ -48,9 +48,9 @@
                 @if($setting->logo)
 
                     <img src="{{ asset('storage/' . $setting->logo) }}"
-                         alt="Logo Toko"
-                         class="w-32 h-32 rounded-full object-cover border-4 
-                         border-gray-100 dark:border-slate-600 shadow">
+                            alt="Logo Toko"
+                            class="w-32 h-32 rounded-full object-cover border-4 
+                            border-gray-100 dark:border-slate-600 shadow">
 
                 @else
 

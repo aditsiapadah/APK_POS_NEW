@@ -99,28 +99,8 @@
                     </td>
 
                     {{-- Jenis Produk --}}
-                    <td class="px-8 py-5">
-
-                        <span class="
-                            px-8 py-5 text-gray-700 dark:text-gray-200
-
-                            @if($item->jenis_produk == 'Makanan')
-                                
-
-                            @elseif($item->jenis_produk == 'Minuman')
-                                
-
-                            @elseif($item->jenis_produk == 'Elektronik')
-                                
-
-                            @else
-                                
-                            @endif">
-
-                            {{ $item->jenis_produk }}
-
-                        </span>
-
+                    <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
+                        {{ $item->jenisProduk->nama ?? '-' }}
                     </td>
 
                     {{-- Harga Beli --}}

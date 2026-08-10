@@ -55,6 +55,23 @@
             <span class="font-medium text-sm">Users</span>
         </a>
 
+        <!-- Jenis Produk -->
+        <a href="{{ route('jenis-produk.index') }}"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+        {{ request()->routeIs('jenis-produk.*') 
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+                : 'hover:bg-white/10' }}">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center
+                {{ request()->routeIs('jenis-produk.*') 
+                    ? 'bg-white/20' 
+                    : 'bg-white/5 group-hover:bg-white/10' }}">
+                <i class="fa-solid fa-tags text-sm"></i>
+            </div>
+            <span class="font-medium text-sm">
+                Jenis Produk
+            </span>
+        </a>
+
         <!-- Produk -->
         <a href="{{ route('produk.index') }}"
            class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
@@ -131,10 +148,7 @@
 
         <div class="border-t border-white/10 pt-5 mb-4">
             <div class="flex items-center gap-3 px-2">
-                <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#1E3A8A] to-[#2563eb]
-                            flex items-center justify-center shadow-lg ring-2 ring-white/10">
-                    <i class="fa-solid fa-user text-sm"></i>
-                </div>
+                <x-user-avatar :user="Auth::user()" />
 
                 <div class="overflow-hidden flex-1">
                     <p class="font-semibold text-sm truncate text-white">
