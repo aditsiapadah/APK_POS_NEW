@@ -7,21 +7,29 @@
 <div class="space-y-6">
 
     {{-- Header --}}
-    <div class="flex justify-between items-center">
-        <div>
-            <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
-                Data Users
-            </h1>
-        </div>
-
-        <a href="{{ route('admin.users.create') }}"
-            class="bg-[#0A2540] hover:bg-[#12395f]
-                   text-white px-5 py-3 rounded-xl
-                   font-semibold shadow transition">
-            <i class="fa-solid fa-user-plus mr-2"></i>
-            Tambah User
-        </a>
-    </div>
+    <x-page-header
+        title="Data Users"
+        subtitle="Kelola akun pengguna dan hak akses sistem POS ADITYA."
+        label="User Management"
+        icon="fa-users">
+        <x-slot:actions>
+            <a href="{{ route('admin.users.create') }}"
+                class="inline-flex items-center gap-2
+                px-5 py-3
+                rounded-xl
+                bg-white
+                text-[#0A2540]
+                hover:bg-blue-50
+                shadow-lg
+                hover:shadow-xl
+                transition-all duration-200
+                font-semibold
+                text-sm">
+                <i class="fa-solid fa-user-plus"></i>
+                Tambah User
+            </a>
+        </x-slot:actions>
+    </x-page-header>
 
     {{-- Search --}}
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6">

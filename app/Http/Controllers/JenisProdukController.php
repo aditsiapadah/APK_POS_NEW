@@ -11,9 +11,9 @@ class JenisProdukController extends Controller
     {
         $search = $request->search;
 
-        $jenisProduks = JenisProduk::when($search, function ($query) use ($search) {
-                $query->where('nama', 'like', '%' . $search . '%')
-                      ->orWhere('deskripsi', 'like', '%' . $search . '%');
+        $jenisProduks = JenisProduk::withCount('produk')
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
             })
             ->latest()
             ->paginate(10)
@@ -30,13 +30,11 @@ class JenisProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'      => 'required|string|max:255|unique:jenis_produk,nama',
-            'deskripsi' => 'nullable|string',
+            'nama' => 'required|string|max:255|unique:jenis_produk,nama',
         ]);
 
         JenisProduk::create([
-            'nama'      => $request->nama,
-            'deskripsi' => $request->deskripsi,
+            'nama' => $request->nama,
         ]);
 
         return redirect()
@@ -52,13 +50,11 @@ class JenisProdukController extends Controller
     public function update(Request $request, JenisProduk $jenisProduk)
     {
         $request->validate([
-            'nama'      => 'required|string|max:255|unique:jenis_produk,nama,' . $jenisProduk->id,
-            'deskripsi' => 'nullable|string',
+            'nama' => 'required|string|max:255|unique:jenis_produk,nama,' . $jenisProduk->id,
         ]);
 
         $jenisProduk->update([
-            'nama'      => $request->nama,
-            'deskripsi' => $request->deskripsi,
+            'nama' => $request->nama,
         ]);
 
         return redirect()

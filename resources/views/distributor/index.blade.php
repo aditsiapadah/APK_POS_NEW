@@ -7,19 +7,29 @@
 <div class="space-y-6">
 
     {{-- Judul + Tombol --}}
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
-            Data Distributor
-        </h1>
-        <a href="{{ route('distributor.create') }}"
-            class="bg-[#0A2540] hover:bg-[#12395f]
-            text-white px-6 py-3 rounded-xl
-            shadow-lg transition
-            font-semibold">
-            <i class="fa-solid fa-truck mr-2"></i>
-            Tambah Distributor
-        </a>
-    </div>
+    <x-page-header
+        title="Data Distributor"
+        subtitle="Kelola informasi distributor dan pemasok produk POS ADITYA."
+        label="Distributor Management"
+        icon="fa-truck">
+        <x-slot:actions>
+            <a href="{{ route('distributor.create') }}"
+                class="inline-flex items-center gap-2
+                px-5 py-3
+                rounded-xl
+                bg-white
+                text-[#0A2540]
+                hover:bg-blue-50
+                shadow-lg
+                hover:shadow-xl
+                transition-all duration-200
+                font-semibold
+                text-sm">
+                <i class="fa-solid fa-truck"></i>
+                Tambah Distributor
+            </a>
+        </x-slot:actions>
+    </x-page-header>
 
     {{-- Search --}}
     <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-6 mb-8">

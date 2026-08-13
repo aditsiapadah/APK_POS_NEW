@@ -7,20 +7,29 @@
 <div class="space-y-6">
 
     {{-- Judul + Tombol --}}
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
-            Data Produk
-        </h1>
-
-        <a href="{{ route('produk.create') }}"
-            class="bg-[#0A2540] hover:bg-[#12395f]
-            text-white px-6 py-3 rounded-xl
-            shadow-lg transition
-            font-semibold">
-            <i class="fa-solid fa-box mr-2"></i>
-            Tambah Produk
-        </a>
-    </div>
+    <x-page-header
+        title="Data Produk"
+        subtitle="Kelola data produk, harga, stok, dan informasi distributor."
+        label="Product Management"
+        icon="fa-box">
+        <x-slot:actions>
+            <a href="{{ route('produk.create') }}"
+                class="inline-flex items-center gap-2
+                px-5 py-3
+                rounded-xl
+                bg-white
+                text-[#0A2540]
+                hover:bg-blue-50
+                shadow-lg
+                hover:shadow-xl
+                transition-all duration-200
+                font-semibold
+                text-sm">
+                <i class="fa-solid fa-plus"></i>
+                Tambah Produk
+            </a>
+        </x-slot:actions>
+    </x-page-header>
 
     {{-- Search --}}
     <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-6 mb-8">

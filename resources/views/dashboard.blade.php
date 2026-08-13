@@ -4,30 +4,14 @@
 
 @section('content')
 
-<div class="mb-8">
-
-    <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
-        Ringkasan Hari Ini
-    </h1>
-    <div class="flex items-center gap-8 mt-2">
-        <p class="text-slate-600 dark:text-slate-300">
-            {{ $tanggalHariIni->translatedFormat('l, d F Y') }}
-        </p>
-    </div>
-</div>
-
-<script>
-    function updateJam() {
-        const sekarang = new Date();
-        const jam = String(sekarang.getHours()).padStart(2, '0');
-        const menit = String(sekarang.getMinutes()).padStart(2, '0');
-        const detik = String(sekarang.getSeconds()).padStart(2, '0');
-        document.getElementById('jam').textContent =
-            `${jam}:${menit}:${detik}`;
-    }
-    updateJam();
-    setInterval(updateJam, 1000);
-</script>
+{{-- HEADER --}}
+<x-page-header
+    title="Ringkasan Hari Ini"
+    subtitle="{{ $tanggalHariIni->translatedFormat('l, d F Y') }}"
+    label="Dashboard Overview"
+    icon="fa-chart-line"
+/>
+<br>
 {{-- KARTU STATISTIK --}}
 @if(auth()->user()->role->name == 'Admin')
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

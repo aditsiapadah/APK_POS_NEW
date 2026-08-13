@@ -7,19 +7,28 @@
 <div class="space-y-6">
 
     {{-- Judul + Tombol --}}
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
-            Data Jenis Produk
-        </h1>
-        <a href="{{ route('jenis-produk.create') }}"
-            class="bg-[#0A2540] hover:bg-[#12395f]
-            text-white px-6 py-3 rounded-xl
-            shadow-lg transition
-            font-semibold">
-            <i class="fa-solid fa-tags mr-2"></i>
-            Tambah Jenis Produk
-        </a>
-    </div>
+    <x-page-header
+        title="Data Jenis Produk"
+        subtitle="Kelola kategori atau jenis produk yang tersedia di POS ADITYA."
+        label="Product Category"
+        icon="fa-tags">
+        <x-slot:actions>
+            <a href="{{ route('jenis-produk.create') }}"
+                class="inline-flex items-center gap-2
+                px-5 py-3
+                rounded-xl
+                bg-white
+                text-[#0A2540]
+                hover:bg-blue-50
+                shadow-lg
+                hover:shadow-xl
+                transition-all duration-200
+                font-semiboldtext-sm">
+                <i class="fa-solid fa-tags"></i>
+                Tambah Jenis Produk
+            </a>
+        </x-slot:actions>
+    </x-page-header>
 
     {{-- Search --}}
     <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-6 mb-8">
@@ -55,7 +64,7 @@
                 <tr class="text-left text-gray-500 dark:text-gray-200">
                     <th class="px-8 py-5">#</th>
                     <th class="px-8 py-5">Nama Jenis</th>
-                    <th class="px-8 py-5">Deskripsi</th>
+                    <th class="px-8 py-5 text-center">Stok</th>
                     <th class="px-8 py-5 text-center">Aksi</th>
                 </tr>
             </thead>
@@ -80,8 +89,13 @@
                         {{ $item->nama }}
                     </td>
 
-                    <td class="px-8 py-5 text-gray-700 dark:text-gray-200">
-                        {{ Str::limit($item->deskripsi, 50) ?? '-' }}
+                    <td class="px-8 py-5 text-center">
+                        <span class="inline-flex items-center justify-center min-w-[2.5rem] px-3 py-1 rounded-full text-sm font-semibold
+                            {{ $item->produk_count > 0
+                                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300'
+                                : 'bg-gray-100 text-gray-500 dark:bg-slate-700 dark:text-gray-400' }}">
+                            {{ $item->produk_count }}
+                        </span>
                     </td>
 
                     <td class="px-8 py-5">

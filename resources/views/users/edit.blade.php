@@ -125,44 +125,79 @@
     </form>
 </div>
 
+<div id="user-data"
+    data-has-foto="{{ $user->foto ? 'true' : 'false' }}"
+    data-foto-url="{{ $user->foto ? asset('storage/' . $user->foto) : '' }}">
+</div>
+
 <script>
     const nameInput = document.getElementById('name');
-    const fotoInput = document.getElementById('foto');
-    const avatarPreview = document.getElementById('avatar-preview');
-    const hasExistingFoto = {{ $user->foto ? 'true' : 'false' }};
-    const existingFotoUrl = @json($user->foto ? asset('storage/' . $user->foto) : null);
+const fotoInput = document.getElementById('foto');
+const avatarPreview = document.getElementById('avatar-preview');
 
-    function renderInitial(name) {
-        const initial = name.trim() ? name.trim().charAt(0).toUpperCase() : '?';
-        avatarPreview.innerHTML = `
-            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-[#1E3A8A] to-[#2563eb] flex items-center justify-center text-3xl font-bold text-white ring-4 ring-slate-100 dark:ring-slate-700 shadow-lg">
-                ${initial}
-            </div>`;
+const userData = document.getElementById('user-data');
+
+const hasExistingFoto = userData.dataset.hasFoto === 'true';
+const existingFotoUrl = userData.dataset.fotoUrl || null;
+
+function renderInitial(name) {
+    const initial = name.trim()?.charAt(0).toUpperCase() || '?';
+
+    avatarPreview.innerHTML = `
+        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-[#1E3A8A] to-[#2563eb]
+                    flex items-center justify-center text-3xl font-bold text-white
+                    ring-4 ring-slate-100 dark:ring-slate-700 shadow-lg">
+            ${initial}
+        </div>
+    `;
+}
+
+nameInput.addEventListener('input', function () {
+    if (!fotoInput.files.length && !hasExistingFoto) {
+        renderInitial(this.value);
+    }
+});
+
+fotoInput.addEventListener('change', function (e) {
+    const file = e.target.files[0];
+
+    if (!file) {
+        if (hasExistingFoto && existingFotoUrl) {
+            avatarPreview.innerHTML = `
+                <img src="${existingFotoUrl}"
+                     class="w-24 h-24 rounded-full object-cover
+                            ring-4 ring-slate-100 dark:ring-slate-700 shadow-lg">
+            `;
+        } else {
+            renderInitial(nameInput.value);
+        }
+
+        return;
     }
 
-    nameInput.addEventListener('input', function() {
-        if (!fotoInput.files.length && !hasExistingFoto) {
-            renderInitial(this.value);
-        }
-    });
+    const reader = new FileReader();
 
-    fotoInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) {
-            if (hasExistingFoto && existingFotoUrl) {
-                avatarPreview.innerHTML = `<img src="${existingFotoUrl}" class="w-24 h-24 rounded-full object-cover ring-4 ring-slate-100 dark:ring-slate-700 shadow-lg">`;
-            } else {
-                renderInitial(nameInput.value);
-            }
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            avatarPreview.innerHTML = `
-                <img src="${event.target.result}" class="w-24 h-24 rounded-full object-cover ring-4 ring-slate-100 dark:ring-slate-700 shadow-lg">`;
-        };
-        reader.readAsDataURL(file);
-    });
+    reader.onload = function (event) {
+        avatarPreview.innerHTML = `
+            <img src="${event.target.result}"
+                 class="w-24 h-24 rounded-full object-cover
+                        ring-4 ring-slate-100 dark:ring-slate-700 shadow-lg">
+        `;
+    };
+
+    reader.readAsDataURL(file);
+});
+
+// Tampilkan foto/avatar saat halaman pertama kali dibuka
+if (hasExistingFoto && existingFotoUrl) {
+    avatarPreview.innerHTML = `
+        <img src="${existingFotoUrl}"
+             class="w-24 h-24 rounded-full object-cover
+                    ring-4 ring-slate-100 dark:ring-slate-700 shadow-lg">
+    `;
+} else {
+    renderInitial(nameInput.value);
+}
 </script>
 
 @endsection

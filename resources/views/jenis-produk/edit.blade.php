@@ -41,26 +41,6 @@
                 @enderror
             </div>
 
-            {{-- Deskripsi --}}
-            <div>
-                <label class="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
-                    Deskripsi
-                </label>
-                <textarea
-                    name="deskripsi"
-                    rows="4"
-                    placeholder="Deskripsi jenis produk (opsional)"
-                    class="w-full px-4 py-3 rounded-lg border
-                    dark:bg-slate-700
-                    dark:border-slate-600
-                    dark:text-white
-                    focus:ring-2 focus:ring-blue-500">{{ old('deskripsi', $jenisProduk->deskripsi) }}</textarea>
-                @error('deskripsi')
-                <p class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                </p>
-                @enderror
-            </div>
         </div>
 
         <div class="flex justify-end gap-3 mt-8">

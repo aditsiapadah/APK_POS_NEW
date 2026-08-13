@@ -7,20 +7,29 @@
 <div class="space-y-6">
 
     {{-- Judul + Tombol Tambah --}}
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
-            Data Penjualan
-        </h1>
-
-        <a href="{{ route('penjualan.create') }}"
-            class="bg-[#0A2540] hover:bg-[#12395f]
-            text-white px-6 py-3 rounded-xl
-            shadow-lg transition
-            font-semibold flex items-center">
-            <i class="fa-solid fa-plus mr-2"></i>
-            Tambah Penjualan
-        </a>
-    </div>
+    <x-page-header
+        title="Data Penjualan"
+        subtitle="Kelola transaksi penjualan dan informasi pembayaran POS ADITYA."
+        label="Sales Management"
+        icon="fa-cart-shopping">
+        <x-slot:actions>
+            <a href="{{ route('penjualan.create') }}"
+                class="inline-flex items-center gap-2
+                px-5 py-3
+                rounded-xl
+                bg-white
+                text-[#0A2540]
+                hover:bg-blue-50
+                shadow-lg
+                hover:shadow-xl
+                transition-all duration-200
+                font-semibold
+                text-sm">
+                <i class="fa-solid fa-plus"></i>
+                Tambah Penjualan
+            </a>
+        </x-slot:actions>
+    </x-page-header>
 
 
     {{-- Search --}}
@@ -256,29 +265,45 @@
 {{-- ============================== --}}
 {{-- SUCCESS ALERT --}}
 {{-- ============================== --}}
-@if(session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil',
-        text: @json(session('success')),
-        confirmButtonColor: '#0A2540'
-    });
-</script>
-@endif
-{{-- ============================== --}}
-{{-- ERROR ALERT --}}
-{{-- ============================== --}}
-@if(session('error'))
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Tidak Dapat Dihapus',
-        text: @json(session('error')),
-        confirmButtonColor: '#d33'
-    });
-</script>
-@endif
+    @if(session('success'))
+        <div id="success-message"
+            data-message="{{ session('success') }}"
+            class="hidden"></div>
+
+        <script>
+            const successElement = document.getElementById('success-message');
+            const successMessage = successElement?.dataset.message;
+
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: successMessage,
+                    confirmButtonColor: '#0A2540'
+                });
+            }
+        </script>
+    @endif
+
+    @if(session('error'))
+        <div id="error-message"
+            data-message="{{ session('error') }}"
+            class="hidden"></div>
+
+        <script>
+            const errorElement = document.getElementById('error-message');
+            const errorMessage = errorElement?.dataset.message;
+
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Tidak Dapat Dihapus',
+                    text: errorMessage,
+                    confirmButtonColor: '#d33'
+                });
+            }
+        </script>
+    @endif
 {{-- ============================== --}}
 {{-- KONFIRMASI HAPUS --}}
 {{-- ============================== --}}
@@ -302,9 +327,7 @@ document.querySelectorAll('.form-hapus-penjualan').forEach(function(form) {
         });
     });
 });
-{{-- ============================== --}}
-{{-- TRANSAKSI COMPLETED --}}
-{{-- ============================== --}}
+
 function transaksiSelesai() {
     Swal.fire({
         icon: 'warning',

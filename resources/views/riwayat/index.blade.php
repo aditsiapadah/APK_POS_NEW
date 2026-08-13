@@ -6,27 +6,58 @@
 
 <div class="space-y-6">
 
-    {{-- Judul --}}
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
-            Riwayat Transaksi
-        </h1>
-    </div>
+    {{-- =========================================================
+    HEADER RIWAYAT TRANSAKSI
+    ========================================================= --}}
+    <x-page-header
+        title="Riwayat Transaksi"
+        subtitle="Lihat dan kelola seluruh riwayat transaksi penjualan POS ADITYA."
+        label="Transaction History"
+        icon="fa-clock-rotate-left"
+    />
 
-    {{-- Alert Success --}}
+
+    {{-- =========================================================
+        ALERT SUCCESS
+    ========================================================= --}}
     @if(session('success'))
-    <div class="mb-5 bg-green-100 dark:bg-green-900 border border-green-300 dark:border-green-700
-            text-green-700 dark:text-green-200 px-5 py-3 rounded-xl">
-        {{ session('success') }}
-    </div>
+
+        <div class="mb-5
+            bg-green-100
+            dark:bg-green-900
+            border border-green-300
+            dark:border-green-700
+            text-green-700
+            dark:text-green-200
+            px-5 py-3
+            rounded-xl">
+
+            {{ session('success') }}
+
+        </div>
+
     @endif
 
-    {{-- Alert Error --}}
+
+    {{-- =========================================================
+        ALERT ERROR
+    ========================================================= --}}
     @if(session('errors') || session('error'))
-    <div class="mb-5 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700
-            text-red-700 dark:text-red-200 px-5 py-3 rounded-xl">
-        {{ session('errors') ?? session('error') }}
-    </div>
+
+        <div class="mb-5
+            bg-red-100
+            dark:bg-red-900
+            border border-red-300
+            dark:border-red-700
+            text-red-700
+            dark:text-red-200
+            px-5 py-3
+            rounded-xl">
+
+            {{ session('errors') ?? session('error') }}
+
+        </div>
+
     @endif
 
     {{-- Search --}}

@@ -6,200 +6,670 @@
 
 <div class="space-y-6">
 
-    {{-- Judul + Tombol Edit --}}
-    <div class="flex justify-between items-center mb-8">
+    {{-- =========================================================
+        HEADER
+========================================================== --}}
+    <div class="relative overflow-hidden rounded-3xl
+    bg-gradient-to-br from-[#0A2540] via-[#12395f] to-[#2563eb]
+    px-6 py-6 md:px-8 md:py-7 shadow-xl">
 
-        <h1 class="text-4xl font-bold text-[#0A2540] dark:text-white">
-            Pengaturan
-        </h1>
+        {{-- Decorative --}}
+        <div class="absolute -top-24 -right-20
+        w-64 h-64 bg-white/10 rounded-full blur-2xl"></div>
 
-        <a href="{{ route('pengaturan.edit') }}"
-           class="bg-[#0A2540] hover:bg-[#12395f] text-white px-6 py-3 rounded-xl
-           font-semibold transition shadow-lg flex items-center gap-2">
+        <div class="absolute right-8 top-5 opacity-10">
+            <i class="fa-solid fa-gear text-[120px] text-white"></i>
+        </div>
 
-            <i class="fa-solid fa-pen"></i>
-            Edit
-        </a>
+        <div class="relative flex flex-col sm:flex-row
+        sm:items-center sm:justify-between gap-5">
 
-    </div>
-    {{-- Informasi Toko --}}
-    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-6 md:p-8">
+            <div>
 
+                <div class="flex items-center gap-3 mb-2">
 
-        <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 rounded-xl
+                    bg-white/15 backdrop-blur
+                    border border-white/20
+                    flex items-center justify-center
+                    text-white">
 
-            <div class="w-10 h-10 bg-[#0A2540] rounded-xl flex items-center justify-center text-white">
-                <i class="fa-solid fa-store"></i>
+                        <i class="fa-solid fa-sliders"></i>
+
+                    </div>
+
+                    <span class="text-blue-100 text-xs
+                    font-semibold uppercase tracking-widest">
+
+                        System Settings
+
+                    </span>
+
+                </div>
+
+                <h1 class="text-3xl font-bold text-white">
+                    Pengaturan
+                </h1>
+
+                <p class="text-blue-100 text-sm mt-1">
+                    Kelola informasi toko dan aplikasi POS ADITYA.
+                </p>
+
             </div>
 
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
-                Informasi Toko
-            </h2>
+
+            {{-- Tombol Edit --}}
+            <a href="{{ route('pengaturan.edit') }}"
+                class="inline-flex items-center justify-center gap-2
+            bg-white text-[#0A2540]
+            hover:bg-blue-50
+            px-5 py-3 rounded-xl
+            font-bold shadow-lg
+            transition-all duration-200
+            hover:-translate-y-0.5
+            self-start sm:self-auto">
+
+                <i class="fa-solid fa-pen-to-square"></i>
+
+                Edit Pengaturan
+
+            </a>
 
         </div>
 
+    </div>
 
-        <div class="flex flex-col md:flex-row gap-8 items-start">
+
+    {{-- =========================================================
+     2 COLUMN CONTENT
+========================================================== --}}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
 
-            {{-- Logo --}}
-            <div class="flex-shrink-0">
+        {{-- =====================================================
+         KIRI - INFORMASI TOKO
+    ====================================================== --}}
+        <div class="bg-white dark:bg-slate-800
+        rounded-3xl
+        border border-gray-100 dark:border-slate-700
+        shadow-sm overflow-hidden">
 
-                @if($setting->logo)
+
+            {{-- Header --}}
+            <div class="px-6 py-5
+            bg-gradient-to-r
+            from-blue-50 to-slate-50
+            dark:from-blue-900/20
+            dark:to-slate-900/20
+            border-b border-gray-100
+            dark:border-slate-700">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-11 h-11 rounded-xl
+                    bg-gradient-to-br
+                    from-[#0A2540] to-[#2563eb]
+                    flex items-center justify-center
+                    text-white shadow-md">
+
+                        <i class="fa-solid fa-store"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h2 class="text-lg font-bold
+                        text-gray-900 dark:text-white">
+
+                            Informasi Toko
+
+                        </h2>
+
+                        <p class="text-xs text-gray-500
+                        dark:text-gray-400">
+
+                            Identitas dan kontak toko
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{-- Content --}}
+            <div class="p-6">
+
+                {{-- Logo + Nama --}}
+                <div class="flex items-center gap-5 mb-6">
+
+                    {{-- Logo --}}
+                    @if($setting->logo)
 
                     <img src="{{ asset('storage/' . $setting->logo) }}"
-                            alt="Logo Toko"
-                            class="w-32 h-32 rounded-full object-cover border-4 
-                            border-gray-100 dark:border-slate-600 shadow">
+                        alt="Logo Toko"
+                        class="w-24 h-24 rounded-2xl
+                        object-cover
+                        border-4 border-white
+                        dark:border-slate-700
+                        shadow-lg flex-shrink-0">
 
-                @else
+                    @else
 
-                    <div class="w-32 h-32 rounded-full bg-[#0A2540]
-                        flex items-center justify-center text-white text-4xl 
-                        font-bold shadow">
+                    <div class="w-24 h-24 rounded-2xl
+                        bg-gradient-to-br
+                        from-[#0A2540] to-[#2563eb]
+                        flex items-center justify-center
+                        text-white text-4xl font-bold
+                        shadow-lg flex-shrink-0">
 
                         {{ strtoupper(substr($setting->nama_toko ?? 'P', 0, 1)) }}
 
                     </div>
 
-                @endif
-
-            </div>
+                    @endif
 
 
-            {{-- Data --}}
-            <div class="flex-1 space-y-5">
+                    {{-- Nama --}}
+                    <div class="min-w-0">
 
+                        <p class="text-xs uppercase
+                        tracking-wider font-semibold
+                        text-gray-400 dark:text-gray-500 mb-1">
 
-                <div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">
-                        Nama Toko
-                    </p>
+                            Nama Toko
 
-                    <p class="text-xl font-semibold text-gray-900 dark:text-white">
-                        {{ $setting->nama_toko ?? '-' }}
-                    </p>
+                        </p>
+
+                        <h3 class="text-2xl font-bold
+                        text-[#0A2540] dark:text-white
+                        truncate">
+
+                            {{ $setting->nama_toko ?? '-' }}
+
+                        </h3>
+
+                        <div class="flex items-center gap-2 mt-2">
+
+                            <span class="w-2 h-2 rounded-full
+                            bg-green-500"></span>
+
+                            <span class="text-xs font-semibold
+                            text-green-600 dark:text-green-400">
+
+                                Toko Aktif
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
 
-                <div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">
-                        Alamat
-                    </p>
-
-                    <p class="text-gray-800 dark:text-gray-200">
-                        {{ $setting->alamat ?: '-' }}
-                    </p>
-                </div>
+                {{-- Detail --}}
+                <div class="space-y-3">
 
 
+                    {{-- Alamat --}}
+                    <div class="flex items-center gap-3
+                    p-3.5 rounded-xl
+                    bg-gray-50 dark:bg-slate-700/40
+                    border border-gray-100
+                    dark:border-slate-700">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="w-9 h-9 rounded-lg
+                        bg-orange-100 dark:bg-orange-900/20
+                        text-orange-500
+                        flex items-center justify-center
+                        flex-shrink-0">
 
+                            <i class="fa-solid fa-location-dot text-sm"></i>
 
-                    <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            Telepon / WhatsApp
-                        </p>
+                        </div>
 
-                        <p class="text-gray-800 dark:text-gray-200">
-                            {{ $setting->telepon ?: '-' }}
-                        </p>
+                        <div class="min-w-0">
+
+                            <p class="text-[10px] uppercase
+                            font-bold tracking-wider
+                            text-gray-400 dark:text-gray-500">
+
+                                Alamat
+
+                            </p>
+
+                            <p class="text-sm font-medium
+                            text-gray-800 dark:text-gray-200
+                            truncate">
+
+                                {{ $setting->alamat ?: '-' }}
+
+                            </p>
+
+                        </div>
+
                     </div>
 
 
-                    <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            Email
-                        </p>
+                    {{-- Telepon --}}
+                    <div class="flex items-center gap-3
+                    p-3.5 rounded-xl
+                    bg-gray-50 dark:bg-slate-700/40
+                    border border-gray-100
+                    dark:border-slate-700">
 
-                        <p class="text-gray-800 dark:text-gray-200">
-                            {{ $setting->email ?: '-' }}
-                        </p>
+                        <div class="w-9 h-9 rounded-lg
+                        bg-green-100 dark:bg-green-900/20
+                        text-green-500
+                        flex items-center justify-center
+                        flex-shrink-0">
+
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+
+                        </div>
+
+                        <div class="min-w-0">
+
+                            <p class="text-[10px] uppercase
+                            font-bold tracking-wider
+                            text-gray-400 dark:text-gray-500">
+
+                                Telepon / WhatsApp
+
+                            </p>
+
+                            <p class="text-sm font-semibold
+                            text-gray-800 dark:text-gray-200">
+
+                                {{ $setting->telepon ?: '-' }}
+
+                            </p>
+
+                        </div>
+
                     </div>
 
 
+                    {{-- Email --}}
+                    <div class="flex items-center gap-3
+                    p-3.5 rounded-xl
+                    bg-gray-50 dark:bg-slate-700/40
+                    border border-gray-100
+                    dark:border-slate-700">
+
+                        <div class="w-9 h-9 rounded-lg
+                        bg-blue-100 dark:bg-blue-900/20
+                        text-blue-500
+                        flex items-center justify-center
+                        flex-shrink-0">
+
+                            <i class="fa-solid fa-envelope text-sm"></i>
+
+                        </div>
+
+                        <div class="min-w-0">
+
+                            <p class="text-[10px] uppercase
+                            font-bold tracking-wider
+                            text-gray-400 dark:text-gray-500">
+
+                                Email
+
+                            </p>
+
+                            <p class="text-sm font-semibold
+                            text-gray-800 dark:text-gray-200
+                            truncate">
+
+                                {{ $setting->email ?: '-' }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Status --}}
+                    <div class="flex items-center gap-3
+                    p-3.5 rounded-xl
+                    bg-gray-50 dark:bg-slate-700/40
+                    border border-gray-100
+                    dark:border-slate-700">
+
+                        <div class="w-9 h-9 rounded-lg
+                        bg-blue-100 dark:bg-blue-900/20
+                        text-blue-500
+                        flex items-center justify-center
+                        flex-shrink-0">
+
+                            <i class="fa-solid fa-shield-halved text-sm"></i>
+
+                        </div>
+
+                        <div>
+
+                            <p class="text-[10px] uppercase
+                            font-bold tracking-wider
+                            text-gray-400 dark:text-gray-500">
+
+                                Status Sistem
+
+                            </p>
+
+                            <div class="flex items-center gap-2">
+
+                                <span class="w-2 h-2 rounded-full
+                                bg-green-500"></span>
+
+                                <p class="text-sm font-semibold
+                                text-gray-800 dark:text-gray-200">
+
+                                    Sistem Aktif
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- =====================================================
+         KANAN - TENTANG APLIKASI
+    ====================================================== --}}
+        <div class="bg-white dark:bg-slate-800
+        rounded-3xl
+        border border-gray-100 dark:border-slate-700
+        shadow-sm overflow-hidden">
+
+
+            {{-- Header --}}
+            <div class="px-6 py-5
+            bg-gradient-to-r
+            from-blue-50 to-slate-50
+            dark:from-blue-900/20
+            dark:to-slate-900/20
+            border-b border-gray-100
+            dark:border-slate-700">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-11 h-11 rounded-xl
+                    bg-gradient-to-br
+                    from-[#0A2540] to-[#2563eb]
+                    flex items-center justify-center
+                    text-white shadow-md">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h2 class="text-lg font-bold
+                        text-gray-900 dark:text-white">
+
+                            Tentang Aplikasi
+
+                        </h2>
+
+                        <p class="text-xs text-gray-500
+                        dark:text-gray-400">
+
+                            Informasi aplikasi dan pengembang
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{-- Content --}}
+            <div class="p-6">
+
+
+                {{-- App Identity --}}
+                <div class="flex items-center
+                justify-between gap-4 mb-6">
+
+                    <div class="flex items-center gap-4 min-w-0">
+
+                        <div class="w-14 h-14 rounded-2xl
+                        bg-gradient-to-br
+                        from-[#0A2540] to-[#2563eb]
+                        flex items-center justify-center
+                        text-white text-xl shadow-lg
+                        flex-shrink-0">
+
+                            <i class="fa-solid fa-cash-register"></i>
+
+                        </div>
+
+                        <div class="min-w-0">
+
+                            <h3 class="text-xl font-bold
+                            text-[#0A2540] dark:text-white
+                            truncate">
+
+                                {{ $setting->nama_aplikasi ?? 'POS ADITYA' }}
+
+                            </h3>
+
+                            <p class="text-xs text-gray-500
+                            dark:text-gray-400 mt-1">
+
+                                Point of Sale Management System
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Version --}}
+                    <span class="flex-shrink-0
+                    inline-flex items-center gap-1.5
+                    px-3 py-1.5 rounded-lg
+                    bg-blue-50 dark:bg-blue-900/20
+                    text-blue-600 dark:text-blue-400
+                    text-xs font-bold">
+
+                        <i class="fa-solid fa-code-branch"></i>
+
+                        v{{ $setting->versi_aplikasi ?? '1.0.0' }}
+
+                    </span>
+
                 </div>
 
 
-            </div>
+                {{-- Description --}}
+                <div class="p-4 rounded-2xl
+                bg-gray-50 dark:bg-slate-700/40
+                border border-gray-100
+                dark:border-slate-700 mb-5">
 
+                    <div class="flex gap-3">
 
-        </div>
+                        <div class="w-9 h-9 rounded-lg
+                        bg-blue-100 dark:bg-blue-900/20
+                        text-blue-500
+                        flex items-center justify-center
+                        flex-shrink-0">
 
+                            <i class="fa-solid fa-align-left text-sm"></i>
 
-    </div>
+                        </div>
 
-    {{-- Tentang Aplikasi --}}
-    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-6 md:p-8">
+                        <div>
 
+                            <p class="text-[10px] uppercase
+                            font-bold tracking-wider
+                            text-gray-400 dark:text-gray-500 mb-1">
 
-        <div class="flex items-center gap-3 mb-6">
+                                Deskripsi
 
+                            </p>
 
-            <div class="w-10 h-10 bg-[#0A2540] rounded-xl flex items-center justify-center text-white">
+                            <p class="text-sm text-gray-700
+                            dark:text-gray-300 leading-relaxed">
 
-                <i class="fa-solid fa-circle-info"></i>
+                                {{ $setting->deskripsi_aplikasi ??
+                                'Aplikasi kasir berbasis web untuk membantu pengelolaan transaksi, produk, stok, dan laporan penjualan.' }}
 
-            </div>
+                            </p>
 
+                        </div>
 
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
-                Tentang Aplikasi
-            </h2>
+                    </div>
 
-
-        </div>
-
-
-
-        <div class="space-y-4 text-gray-700 dark:text-gray-300">
-
-
-            <div>
-                <h3 class="text-2xl font-bold text-[#0A2540] dark:text-white">
-                    POS ADITYA
-                </h3>
-
-                <p class="text-sm text-gray-500 dark:text-gray-400">
-                    Version 1.0.0
-                </p>
-            </div>
-            <p>
-                Aplikasi kasir berbasis web yang digunakan untuk membantu
-                pengelolaan transaksi, produk, stok, dan laporan penjualan.
-            </p>
-            <div>
-                <p class="font-semibold text-gray-800 dark:text-white mb-2">
-                    Teknologi yang digunakan:
-                </p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-4 py-2 bg-gray-100 dark:bg-slate-700 rounded-xl">
-                        Laravel 12
-                    </span>
-                    <span class="px-4 py-2 bg-gray-100 dark:bg-slate-700 rounded-xl">
-                        Tailwind CSS
-                    </span>
-                    <span class="px-4 py-2 bg-gray-100 dark:bg-slate-700 rounded-xl">
-                        MySQL
-                    </span>
-                    <span class="px-4 py-2 bg-gray-100 dark:bg-slate-700 rounded-xl">
-                        Bootstrap
-                    </span>
                 </div>
+
+
+                {{-- Teknologi --}}
+                <div class="mb-6">
+
+                    <p class="text-xs uppercase
+                    tracking-wider font-bold
+                    text-gray-400 dark:text-gray-500 mb-3">
+
+                        Teknologi
+
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-2">
+
+
+                        <div class="flex items-center gap-2
+                        px-3 py-2.5 rounded-xl
+                        bg-red-50 dark:bg-red-900/20
+                        text-red-600 dark:text-red-400">
+
+                            <i class="fa-brands fa-laravel"></i>
+
+                            <span class="text-xs font-semibold">
+                                Laravel 12
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex items-center gap-2
+                        px-3 py-2.5 rounded-xl
+                        bg-cyan-50 dark:bg-cyan-900/20
+                        text-cyan-600 dark:text-cyan-400">
+
+                            <i class="fa-solid fa-wind"></i>
+
+                            <span class="text-xs font-semibold">
+                                Tailwind CSS
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex items-center gap-2
+                        px-3 py-2.5 rounded-xl
+                        bg-blue-50 dark:bg-blue-900/20
+                        text-blue-600 dark:text-blue-400">
+
+                            <i class="fa-solid fa-database"></i>
+
+                            <span class="text-xs font-semibold">
+                                MySQL
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex items-center gap-2
+                        px-3 py-2.5 rounded-xl
+                        bg-slate-100 dark:bg-slate-700/50
+                        text-slate-600 dark:text-slate-300">
+
+                            <i class="fa-brands fa-bootstrap"></i>
+
+                            <span class="text-xs font-semibold">
+                                Bootstrap
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {{-- Developer --}}
+                <div class="pt-5
+                border-t border-gray-100
+                dark:border-slate-700
+                flex items-center
+                justify-between gap-3">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="w-9 h-9 rounded-lg
+                        bg-gray-100 dark:bg-slate-700
+                        flex items-center justify-center
+                        text-gray-500 dark:text-gray-300">
+
+                            <i class="fa-solid fa-user-tie text-sm"></i>
+
+                        </div>
+
+                        <div>
+
+                            <p class="text-[10px]
+                            uppercase tracking-wider
+                            font-bold text-gray-400">
+
+                                Developer
+
+                            </p>
+
+                            <p class="text-sm font-bold
+                            text-gray-800 dark:text-white">
+
+                                {{ $setting->developer ?? 'Aditya Dwi Saputra' }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="text-xs text-gray-400
+                    dark:text-gray-500">
+
+                        © {{ date('Y') }}
+
+                    </p>
+
+                </div>
+
             </div>
-            <div class="border-t dark:border-slate-700 pt-4">
-                <p>
-                    Developer:
-                    <span class="font-semibold">
-                        Aditya Dwi Saputra
-                    </span>
-                </p>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                    © 2026 POS ADITYA.
-                </p>
-            </div>
+
         </div>
+
     </div>
+
 </div>
+
 @endsection
