@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\LaporanController;
 
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -53,6 +54,9 @@ use App\Http\Controllers\SettingController;
         // Riwayat Transaksi
         Route::get('/riwayat-transaksi', [RiwayatTransaksiController::class, 'index'])->name('riwayat.index');
         Route::get('/riwayat-transaksi/{id}', [RiwayatTransaksiController::class, 'show'])->name('riwayat.show');
+
+        // Laporan Penjualan
+        Route::get('/laporan-penjualan', [LaporanController::class, 'index'])->name('laporan.index');
     });
 
     Route::middleware(['auth'])->group(function () {
