@@ -23,13 +23,14 @@
         TOTAL PENJUALAN
     ====================================================== --}}
     <div class="
-        group
-        bg-white dark:bg-[#162033]
-        rounded-3xl p-6
-        shadow-lg hover:shadow-xl
-        border border-slate-100 dark:border-slate-700
-        transition-all duration-300
-        flex items-center justify-between
+    group
+    bg-white dark:bg-[#162033]
+    rounded-3xl p-6
+    shadow-lg hover:shadow-xl
+    border border-slate-100 dark:border-slate-700
+    transition-all duration-500
+    hover:-translate-y-2
+    flex items-center justify-between
     ">
 
         <div>
@@ -102,13 +103,14 @@
         JUMLAH TRANSAKSI
     ====================================================== --}}
     <div class="
-        group
-        bg-white dark:bg-[#162033]
-        rounded-3xl p-6
-        shadow-lg hover:shadow-xl
-        border border-slate-100 dark:border-slate-700
-        transition-all duration-300
-        flex items-center justify-between
+    group
+    bg-white dark:bg-[#162033]
+    rounded-3xl p-6
+    shadow-lg hover:shadow-xl
+    border border-slate-100 dark:border-slate-700
+    transition-all duration-500
+    hover:-translate-y-2
+    flex items-center justify-between
     ">
 
         <div>
@@ -187,14 +189,15 @@
     {{-- =====================================================
         PEMBAYARAN TUNAI
     ====================================================== --}}
-    <div class="
-        group
-        bg-white dark:bg-[#162033]
-        rounded-3xl p-6
-        shadow-lg hover:shadow-xl
-        border border-slate-100 dark:border-slate-700
-        transition-all duration-300
-        flex items-center justify-between
+   <div class="
+    group
+    bg-white dark:bg-[#162033]
+    rounded-3xl p-6
+    shadow-lg hover:shadow-xl
+    border border-slate-100 dark:border-slate-700
+    transition-all duration-500
+    hover:-translate-y-2
+    flex items-center justify-between
     ">
 
         <div>
@@ -272,13 +275,14 @@
         PEMBAYARAN NON-TUNAI
     ====================================================== --}}
     <div class="
-        group
-        bg-white dark:bg-[#162033]
-        rounded-3xl p-6
-        shadow-lg hover:shadow-xl
-        border border-slate-100 dark:border-slate-700
-        transition-all duration-300
-        flex items-center justify-between
+    group
+    bg-white dark:bg-[#162033]
+    rounded-3xl p-6
+    shadow-lg hover:shadow-xl
+    border border-slate-100 dark:border-slate-700
+    transition-all duration-500
+    hover:-translate-y-2
+    flex items-center justify-between
     ">
 
         <div>
