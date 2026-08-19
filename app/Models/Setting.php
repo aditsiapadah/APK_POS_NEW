@@ -12,6 +12,7 @@ class Setting extends Model
     'telepon',
     'email',
     'logo',
+    'pengelola',
 
     'bahasa',
     'mata_uang',

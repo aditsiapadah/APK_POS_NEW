@@ -20,6 +20,7 @@ class SettingController extends Controller
                 'alamat'    => '',
                 'telepon'   => '',
                 'email'     => '',
+                'pengelola' => '',
             ]);
 
         }
@@ -41,6 +42,7 @@ class SettingController extends Controller
                 'alamat'    => '',
                 'telepon'   => '',
                 'email'     => '',
+                'pengelola' => '',
             ]);
 
         }
@@ -62,6 +64,7 @@ class SettingController extends Controller
             'alamat'     => 'nullable|string',
             'telepon'    => 'nullable|string|max:20',
             'email'      => 'nullable|email|max:100',
+             'pengelola'  => 'nullable|string|max:100',
 
             'logo'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
@@ -85,6 +88,7 @@ class SettingController extends Controller
             'alamat',
             'telepon',
             'email',
+            'pengelola',
 
             'nama_aplikasi',
             'versi_aplikasi',
