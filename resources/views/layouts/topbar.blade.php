@@ -1,8 +1,14 @@
-<div class="h-16 bg-white dark:bg-slate-800 shadow-md border-b border-slate-200 dark:border-slate-700 px-8 flex items-center justify-between">
+<div class="h-16 bg-white dark:bg-slate-800 shadow-md border-b border-slate-200 dark:border-slate-700 px-4 md:px-8 flex items-center justify-between">
 
     {{-- Kiri --}}
-    <div>
-        <h1 class="text-2xl font-bold text-slate-800 dark:text-white">
+    <div class="flex items-center gap-3 min-w-0">
+        <button type="button"
+                id="sidebar-toggle"
+                title="Perkecil / perbesar sidebar"
+                class="w-11 h-11 shrink-0 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition text-slate-700 dark:text-slate-200">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white truncate">
             @yield('title')
         </h1>
     </div>

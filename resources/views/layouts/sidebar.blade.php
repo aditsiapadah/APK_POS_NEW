@@ -1,19 +1,18 @@
-<div class="fixed top-0 left-0 h-screen z-50 text-white shadow-2xl"
-     style="width: 270px;
-            background: linear-gradient(180deg, #0A2540 0%, #0B1220 100%);
+<div class="h-full text-white shadow-2xl overflow-hidden"
+     style="background: linear-gradient(180deg, #0A2540 0%, #0B1220 100%);
             border-right: 1px solid rgba(255,255,255,0.08);">
 
     <!-- Logo -->
-    <div class="flex items-center gap-3 p-6 border-b border-white/10">
-        <div class="relative">
+    <div class="sidebar-logo flex items-center gap-3 p-5 border-b border-white/10 min-h-[88px]">
+        <div class="relative shrink-0">
             <div class="absolute inset-0 bg-white/20 rounded-full blur-md"></div>
             <img src="{{ asset('images/logo-sekolah.png') }}"
-                 class="relative w-12 h-12 rounded-full object-cover ring-2 ring-white/20 shadow-lg"
+                 class="relative w-11 h-11 rounded-full object-cover ring-2 ring-white/20 shadow-lg"
                  alt="Logo">
         </div>
 
-        <div>
-            <h1 class="font-bold text-lg tracking-wide text-white">
+        <div class="sidebar-brand-text min-w-0">
+            <h1 class="font-bold text-lg tracking-wide text-white leading-tight">
                 POS ADITYA
             </h1>
             <p class="text-xs text-white/50">
@@ -23,162 +22,156 @@
     </div>
 
     <!-- Menu -->
-    <div class="mt-6 px-4 space-y-1">
+    <div class="sidebar-inner mt-6 px-4 space-y-1 overflow-y-auto pb-44">
 
-        <p class="text-[11px] text-white/40 uppercase tracking-wider mb-3 px-3 font-medium">
+        <p class="sidebar-section-title text-[11px] text-white/40 uppercase tracking-wider mb-3 px-3 font-medium">
             Menu Utama
         </p>
 
         <!-- Dashboard -->
         <a href="{{ route('dashboard') }}"
-           class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-           {{ request()->routeIs('dashboard') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Dashboard"
+           class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+           {{ request()->routeIs('dashboard')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
                  {{ request()->routeIs('dashboard') ? 'bg-white/20' : 'bg-white/5 group-hover:bg-white/10' }}">
                 <i class="fa-solid fa-house text-sm"></i>
             </div>
-            <span class="font-medium text-sm">Dashboard</span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Dashboard</span>
         </a>
 
         <!-- Users (hanya Admin) -->
         <a href="{{ route('admin.users') }}"
-            class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-            {{ request()->routeIs('admin.users*') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Users"
+            class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+            {{ request()->routeIs('admin.users*')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
-                {{ request()->routeIs('admin.users*') 
-                    ? 'bg-white/20' 
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
+                {{ request()->routeIs('admin.users*')
+                    ? 'bg-white/20'
                     : 'bg-white/5 group-hover:bg-white/10' }}">
-
                 <i class="fa-solid fa-users text-sm"></i>
             </div>
-
-            <span class="font-medium text-sm">
-                Users
-            </span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Users</span>
         </a>
 
         <!-- Jenis Produk -->
         <a href="{{ route('jenis-produk.index') }}"
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-        {{ request()->routeIs('jenis-produk.*') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Jenis Produk"
+        class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+        {{ request()->routeIs('jenis-produk.*')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
-                {{ request()->routeIs('jenis-produk.*') 
-                    ? 'bg-white/20' 
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
+                {{ request()->routeIs('jenis-produk.*')
+                    ? 'bg-white/20'
                     : 'bg-white/5 group-hover:bg-white/10' }}">
                 <i class="fa-solid fa-tags text-sm"></i>
             </div>
-            <span class="font-medium text-sm">
-                Jenis Produk
-            </span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Jenis Produk</span>
         </a>
 
         <!-- Produk -->
         <a href="{{ route('produk.index') }}"
-           class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-           {{ request()->routeIs('produk.*') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Produk"
+           class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+           {{ request()->routeIs('produk.*')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
                  {{ request()->routeIs('produk.*') ? 'bg-white/20' : 'bg-white/5 group-hover:bg-white/10' }}">
                 <i class="fa-solid fa-box text-sm"></i>
             </div>
-            <span class="font-medium text-sm">Produk</span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Produk</span>
         </a>
 
         <!-- Distributor -->
         <a href="{{ route('distributor.index') }}"
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-        {{ request()->routeIs('distributor.*') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Distributor"
+        class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+        {{ request()->routeIs('distributor.*')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
-                {{ request()->routeIs('distributor.*') 
-                    ? 'bg-white/20' 
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
+                {{ request()->routeIs('distributor.*')
+                    ? 'bg-white/20'
                     : 'bg-white/5 group-hover:bg-white/10' }}">
                 <i class="fa-solid fa-truck text-sm"></i>
             </div>
-            <span class="font-medium text-sm">
-                Distributor
-            </span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Distributor</span>
         </a>
 
         <!-- Penjualan -->
         <a href="{{ route('penjualan.index') }}"
-           class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-           {{ request()->routeIs('penjualan.*') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Penjualan"
+           class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+           {{ request()->routeIs('penjualan.*')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
                  {{ request()->routeIs('penjualan.*') ? 'bg-white/20' : 'bg-white/5 group-hover:bg-white/10' }}">
                 <i class="fa-solid fa-cart-shopping text-sm"></i>
             </div>
-            <span class="font-medium text-sm">Penjualan</span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Penjualan</span>
         </a>
 
         <!-- Riwayat Transaksi -->
         <a href="{{ route('riwayat.index') }}"
-           class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-           {{ request()->routeIs('riwayat.*') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Riwayat Transaksi"
+           class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+           {{ request()->routeIs('riwayat.*')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
                  {{ request()->routeIs('riwayat.*') ? 'bg-white/20' : 'bg-white/5 group-hover:bg-white/10' }}">
                 <i class="fa-solid fa-clock-rotate-left text-sm"></i>
             </div>
-            <span class="font-medium text-sm">Riwayat Transaksi</span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Riwayat Transaksi</span>
         </a>
 
         <!-- Laporan Penjualan -->
         <a href="{{ route('laporan.index') }}"
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-        {{ request()->routeIs('laporan.*') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Laporan Penjualan"
+        class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+        {{ request()->routeIs('laporan.*')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
-                {{ request()->routeIs('laporan.*') 
-                    ? 'bg-white/20' 
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
+                {{ request()->routeIs('laporan.*')
+                    ? 'bg-white/20'
                     : 'bg-white/5 group-hover:bg-white/10' }}">
-
                 <i class="fa-solid fa-chart-column text-sm"></i>
-
             </div>
-
-            <span class="font-medium text-sm">
-                Laporan Penjualan
-            </span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Laporan Penjualan</span>
         </a>
 
         <!-- Pengaturan -->
         <a href="{{ route('pengaturan.index') }}"
-           class="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-           {{ request()->routeIs('pengaturan.*') 
-                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40' 
+           title="Tentang Aplikasi"
+           class="sidebar-nav-link group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+           {{ request()->routeIs('pengaturan.*')
+                ? 'bg-gradient-to-r from-[#1E3A8A] to-[#2563eb] shadow-lg shadow-blue-900/40'
                 : 'hover:bg-white/10' }}">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center
+            <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center
                  {{ request()->routeIs('pengaturan.*') ? 'bg-white/20' : 'bg-white/5 group-hover:bg-white/10' }}">
                 <i class="fa-solid fa-gear text-sm"></i>
             </div>
-            <span class="font-medium text-sm">Tentang Aplikasi</span>
+            <span class="sidebar-label font-medium text-sm whitespace-nowrap">Tentang Aplikasi</span>
         </a>
 
     </div>
 
     <!-- User Profile + Logout -->
-    <div class="absolute bottom-0 left-0 right-0 p-5">
+    <div class="absolute bottom-0 left-0 right-0 p-4">
 
-        <div class="border-t border-white/10 pt-5 mb-4">
-            <div class="flex items-center gap-3 px-2">
+        <div class="border-t border-white/10 pt-4 mb-3">
+            <div class="sidebar-user-row flex items-center gap-3 px-2">
                 <x-user-avatar :user="Auth::user()" />
 
-                <div class="overflow-hidden flex-1">
+                <div class="sidebar-user-info overflow-hidden flex-1 min-w-0">
                     <p class="font-semibold text-sm truncate text-white">
                         {{ Auth::user()->name }}
                     </p>
@@ -189,17 +182,17 @@
             </div>
         </div>
 
-        <!-- Logout Button -->
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit"
-                    class="w-full flex items-center justify-center gap-2
-                           bg-white/10 hover:bg-white/15 
+                    title="Logout"
+                    class="sidebar-nav-link w-full flex items-center justify-center gap-2
+                           bg-white/10 hover:bg-white/15
                            border border-white/10
                            text-white rounded-xl py-3 text-sm font-medium
                            transition-all duration-200 hover:shadow-lg">
                 <i class="fa-solid fa-right-from-bracket text-sm"></i>
-                Logout
+                <span class="sidebar-label">Logout</span>
             </button>
         </form>
     </div>

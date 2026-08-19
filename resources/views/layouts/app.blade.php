@@ -36,12 +36,13 @@
 
 
 
-    {{-- Dark Mode --}}
+    {{-- Dark Mode + Sidebar --}}
     <script>
         if (localStorage.getItem('theme') === 'dark') {
-
             document.documentElement.classList.add('dark');
-
+        }
+        if (localStorage.getItem('sidebar') === 'collapsed') {
+            document.documentElement.classList.add('sidebar-collapsed');
         }
     </script>
 
@@ -63,20 +64,22 @@
 
 
 
+        :root {
+            --sidebar-width: 260px;
+        }
+
+        html.sidebar-collapsed {
+            --sidebar-width: 80px;
+        }
+
         .sidebar {
-
-            width: 260px;
-
+            width: var(--sidebar-width);
             position: fixed;
-
             left: 0;
-
             top: 0;
-
             height: 100vh;
-
             z-index: 50;
-
+            transition: width 0.25s ease;
         }
 
 
@@ -85,13 +88,10 @@
 
 
         .content {
-
-            margin-left: 260px;
-
-            width: calc(100% - 260px);
-
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
             min-height: 100vh;
-
+            transition: margin-left 0.25s ease, width 0.25s ease;
         }
 
 
@@ -101,19 +101,36 @@
 
 
         .topbar {
-
             position: fixed;
-
             top: 0;
-
-            left: 260px;
-
+            left: var(--sidebar-width);
             right: 0;
-
             height: 64px;
-
             z-index: 40;
+            transition: left 0.25s ease;
+        }
 
+        html.sidebar-collapsed .sidebar-label,
+        html.sidebar-collapsed .sidebar-brand-text,
+        html.sidebar-collapsed .sidebar-section-title,
+        html.sidebar-collapsed .sidebar-user-info {
+            display: none;
+        }
+
+        html.sidebar-collapsed .sidebar-nav-link {
+            justify-content: center;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        html.sidebar-collapsed .sidebar-logo,
+        html.sidebar-collapsed .sidebar-user-row {
+            justify-content: center;
+        }
+
+        html.sidebar-collapsed .sidebar-inner {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
         }
 
 
@@ -305,6 +322,26 @@
 
 
 
+
+    @if(auth()->check())
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const html = document.documentElement;
+            const toggleBtn = document.getElementById('sidebar-toggle');
+
+            function setSidebar(collapsed) {
+                html.classList.toggle('sidebar-collapsed', collapsed);
+                localStorage.setItem('sidebar', collapsed ? 'collapsed' : 'expanded');
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function () {
+                    setSidebar(!html.classList.contains('sidebar-collapsed'));
+                });
+            }
+        });
+    </script>
+    @endif
 
     @if(session('error'))
 
