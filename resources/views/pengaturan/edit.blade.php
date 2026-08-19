@@ -47,7 +47,7 @@
             </div>
 
             <h1 class="text-3xl font-bold text-white">
-                Edit Pengaturan
+                Edit Informasi/Tentang Aplikasi
             </h1>
 
             <p class="text-blue-100 text-sm mt-1">
@@ -340,6 +340,43 @@
                 </div>
 
             </div>
+
+            {{-- =================================================
+     INFORMASI PENGELOLA
+================================================== --}}
+<div>
+
+    <label class="flex items-center gap-2
+        text-sm font-bold
+        text-gray-700 dark:text-gray-300 mb-2">
+
+        <i class="fa-solid fa-user-tie
+            text-blue-500"></i>
+
+        Pengelola
+
+    </label>
+
+
+    <input
+        type="text"
+        name="pengelola"
+        value="{{ old('pengelola', $setting->pengelola ?? '') }}"
+        placeholder="Masukkan nama pengelola"
+
+        class="w-full rounded-xl
+        border border-gray-200
+        dark:border-slate-600
+        bg-gray-50 dark:bg-slate-700/70
+        text-gray-900 dark:text-white
+        px-4 py-3.5
+        outline-none
+        focus:bg-white dark:focus:bg-slate-700
+        focus:border-blue-500
+        focus:ring-4 focus:ring-blue-500/10
+        transition">
+
+</div>
 
 
             {{-- =================================================

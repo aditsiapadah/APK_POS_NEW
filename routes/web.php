@@ -63,8 +63,6 @@ use App\Http\Controllers\LaporanController;
         Route::get('/pengaturan', [SettingController::class, 'index'])->name('pengaturan.index');
         Route::put('/pengaturan', [SettingController::class, 'update'])->name('pengaturan.update');
         Route::get('/pengaturan/edit', [SettingController::class, 'edit'])->name('pengaturan.edit');
-        Route::get('/pengaturan/tentang', function () {
-            return view('pengaturan.tentang');
-        })->name('pengaturan.tentang');
+        Route::get('/pengaturan/tentang', function () {return view('pengaturan.tentang');})->name('pengaturan.tentang');
     });
 });

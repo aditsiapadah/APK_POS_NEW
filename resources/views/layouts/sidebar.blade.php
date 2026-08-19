@@ -166,7 +166,7 @@
                  {{ request()->routeIs('pengaturan.*') ? 'bg-white/20' : 'bg-white/5 group-hover:bg-white/10' }}">
                 <i class="fa-solid fa-gear text-sm"></i>
             </div>
-            <span class="font-medium text-sm">Pengaturan</span>
+            <span class="font-medium text-sm">Tentang Aplikasi</span>
         </a>
 
     </div>

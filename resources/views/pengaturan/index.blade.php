@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pengaturan')
+@section('title', 'Tentang Aplikasi')
 
 @section('content')
 
@@ -48,7 +48,7 @@
                 </div>
 
                 <h1 class="text-3xl font-bold text-white">
-                    Pengaturan
+                    Tentang Aplikasi
                 </h1>
 
                 <p class="text-blue-100 text-sm mt-1">
@@ -71,7 +71,7 @@
 
                 <i class="fa-solid fa-pen-to-square"></i>
 
-                Edit Pengaturan
+                Edit Tentang Aplikasi
 
             </a>
 
@@ -212,8 +212,7 @@
 
                 {{-- Detail --}}
                 <div class="space-y-3">
-
-
+                                  
                     {{-- Alamat --}}
                     <div class="flex items-center gap-3
                     p-3.5 rounded-xl
@@ -332,7 +331,45 @@
 
                     </div>
 
+                   {{-- Pengelola --}}
+                    <div class="flex items-center gap-3
+                    p-3.5 rounded-xl
+                    bg-gray-50 dark:bg-slate-700/40
+                    border border-gray-100
+                    dark:border-slate-700">
 
+                        <div class="w-9 h-9 rounded-lg
+                        bg-blue-100 dark:bg-blue-900/20
+                        text-blue-500
+                        flex items-center justify-center
+                        flex-shrink-0">
+
+                            <i class="fa-solid fa-user-tie text-sm"></i>
+
+                        </div>
+
+
+                        <div class="min-w-0">
+
+                            <p class="text-[10px] uppercase
+                            font-bold tracking-wider
+                            text-gray-400 dark:text-gray-500">
+
+                                Pengelola
+
+                            </p>
+
+
+                            <p class="text-sm font-semibold
+                            text-gray-800 dark:text-gray-200">
+
+                                {{ $setting->pengelola ?? 'Belum diatur' }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
                     {{-- Status --}}
                     <div class="flex items-center gap-3
                     p-3.5 rounded-xl
@@ -369,6 +406,54 @@
                                 text-gray-800 dark:text-gray-200">
 
                                     Sistem Aktif
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {{-- Database --}}
+                    <div class="flex items-center gap-3
+                    p-3.5 rounded-xl
+                    bg-gray-50 dark:bg-slate-700/40
+                    border border-gray-100
+                    dark:border-slate-700">
+
+                        <div class="w-9 h-9 rounded-lg
+                        bg-green-100 dark:bg-green-900/20
+                        text-green-500
+                        flex items-center justify-center
+                        flex-shrink-0">
+
+                            <i class="fa-solid fa-database text-sm"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <p class="text-[10px] uppercase
+                            font-bold tracking-wider
+                            text-gray-400 dark:text-gray-500">
+
+                                Database Sistem
+
+                            </p>
+
+
+                            <div class="flex items-center gap-2">
+
+                                <span class="w-2 h-2 rounded-full
+                                bg-green-500"></span>
+
+
+                                <p class="text-sm font-semibold
+                                text-gray-800 dark:text-gray-200">
+
+                                    MySQL Database Aktif
 
                                 </p>
 
@@ -609,6 +694,73 @@
                             </span>
 
                         </div>
+
+                    </div>
+
+                </div>
+
+
+                {{-- Hak Akses --}}
+                <div class="mb-6">
+
+                    <p class="text-xs uppercase
+                    tracking-wider font-bold
+                    text-gray-400 dark:text-gray-500 mb-3">
+
+                        Hak Akses Pengguna
+
+                    </p>
+
+
+                    <div class="grid grid-cols-1 gap-3">
+
+
+                        <div class="p-4 rounded-xl
+                        bg-blue-50 dark:bg-blue-900/20">
+
+                            <div class="flex items-center gap-2 mb-2">
+
+                                <i class="fa-solid fa-user-shield text-blue-600"></i>
+
+                                <h4 class="font-bold text-sm">
+                                    Admin
+                                </h4>
+
+                            </div>
+
+
+                            <p class="text-xs text-gray-600 dark:text-gray-300">
+                                Admin memiliki akses penuh untuk mengelola aplikasi,
+                                seperti mengelola user, produk, distributor,
+                                transaksi, laporan penjualan, dan pengaturan sistem.
+                            </p>
+
+                        </div>
+
+
+
+                        <div class="p-4 rounded-xl
+                        bg-green-50 dark:bg-green-900/20">
+
+                            <div class="flex items-center gap-2 mb-2">
+
+                                <i class="fa-solid fa-user text-green-600"></i>
+
+                                <h4 class="font-bold text-sm">
+                                    Kasir
+                                </h4>
+
+                            </div>
+
+
+                            <p class="text-xs text-gray-600 dark:text-gray-300">
+                                Kasir memiliki akses untuk melakukan transaksi penjualan,
+                                melihat produk, mengelola proses pembayaran,
+                                dan melihat riwayat transaksi sesuai izin yang diberikan.
+                            </p>
+
+                        </div>
+
 
                     </div>
 
