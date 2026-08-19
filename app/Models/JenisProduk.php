@@ -13,7 +13,6 @@ class JenisProduk extends Model
 
     protected $fillable = [
         'nama',
-        'deskripsi',
     ];
 
     public function produk()

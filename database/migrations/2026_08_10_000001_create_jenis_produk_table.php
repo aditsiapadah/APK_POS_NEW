@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('jenis_produk', function (Blueprint $table) {
             $table->id();
             $table->string('nama')->unique();
-            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
     }
